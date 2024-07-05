@@ -1,0 +1,211 @@
+﻿<section class="login_page col-md-12">
+<div class="container">
+<h1 class="my_heading fw-bold pb-2">My Account Information</h1>
+<p><strong>NOTE:</strong> If you already have an account with us, please login at the <a routerLink="../login">login page</a>.</p>
+<form class="register_form mobile_input" [formGroup]="form" (ngSubmit)="onSubmit()">
+<h5 class="my_dark_bg p-2 rounded mb-3">Company Details</h5>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold fw-bold">Company Name:</label>		
+   <div class="col-sm-3">
+      <input type="text" formControlName="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.company.errors }" />
+      <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+         <div *ngIf="f.company.errors['required']">Company Name is required</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Seller's Permit#:</label>		
+   <div class="col-sm-3">
+      <input type="text" formControlName="permitno" class="form-control" />
+   </div>
+   <div class="col-sm-5 text-danger p-0 py-2">(Sellers Permit is a Must for ONLY CALIFORNIA Customers, Fax Copy of Sellers Permit to: 1-800-867-1539)</div>
+</div>
+<h5 class="my_dark_bg p-2 rounded mb-3">Address Details</h5>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">First Name:</label>		
+   <div class="col-sm-3">
+      <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+         <div *ngIf="f.firstName.errors['required']">First Name is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Last Name:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />				
+      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+         <div *ngIf="f.lastName.errors['required']">Last Name is required</div> 
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Street Address:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="entry_street_address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_street_address.errors }" />
+      <div *ngIf="submitted && f.entry_street_address.errors" class="invalid-feedback">
+         <div *ngIf="f.entry_street_address.errors['required']">Street Address is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">City:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="entry_city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_city.errors }" />
+      <div *ngIf="submitted && f.entry_city.errors" class="invalid-feedback">
+         <div *ngIf="f.entry_city.errors['required']">City is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">State/Province:</label>
+   <div class="col-sm-3">
+      <select formControlName="entry_zone_id"  [ngClass]="{ 'is-invalid': submitted && f.entry_zone_id.errors }" class="form-control form-select">
+         <option value="" selected="selected">Please select ...</option>
+             <option [value]="i.zone_id" *ngFor="let i of stateData">{{i.zone_name}}</option>
+      </select>
+      <div *ngIf="submitted && f.entry_zone_id.errors" class="invalid-feedback">
+         <div *ngIf="f.entry_zone_id.errors['required']">State is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Post/Zip Code:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="entry_postcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_postcode.errors }" />
+      <div *ngIf="submitted && f.entry_postcode.errors" class="invalid-feedback">
+         <div *ngIf="f.entry_postcode.errors['required']">Post/Zip is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Country:</label>
+   <div class="col-sm-3">
+      <select rel="dropdown" formControlName="entry_country_id" class="form-control form-select" [ngClass]="{ 'is-invalid': submitted && f.entry_country_id.errors }" (ngModelChange)="onCountryChange($event)">
+         <option value="">Please Choose Your Country</option>
+         <option value="223" selected="selected">United States</option>
+         <option value="13">Australia</option>
+         <option value="38">Canada</option>
+         <option value="73">France</option>
+         <option value="81">Germany</option>
+         <option value="88">Guam</option>
+         <option value="138">Mexico</option>
+         <option value="153">New Zealand</option>
+         <option value="172">Puerto Rico</option>
+         <option value="222">United Kingdom</option>
+      </select>
+      <div *ngIf="submitted && f.entry_country_id.errors" class="invalid-feedback">
+         <div *ngIf="f.entry_country_id.errors['required']">Countryis required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<h5 class="my_dark_bg p-2 rounded mb-3">Additional Contact Details</h5>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Telephone:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="customers_telephone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.customers_telephone.errors }" appPhoneMask />
+      <div *ngIf="submitted && f.customers_telephone.errors" class="invalid-feedback">
+         <div *ngIf="f.customers_telephone.errors['required']">Telephone is required:</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Fax Number:</label>
+   <div class="col-sm-3">
+      <input type="text" formControlName="customers_fax" class="form-control" appPhoneMask />
+   </div>   
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<h5 class="my_dark_bg p-2 rounded mb-3">Login Details</h5>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Email Address:</label>
+   <div class="col-sm-3 email_small_text">
+      <input type="text" formControlName="customers_email_address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.customers_email_address.errors }"  ngModel [email]="true" />
+      <div *ngIf="submitted && f.customers_email_address.errors" class="invalid-feedback">
+         <div *ngIf="f.customers_email_address.errors['required']">Email Address is required:</div>
+         <div *ngIf="f.customers_email_address.errors['email']">Email Address is not valid:</div>
+      </div>
+   </div>
+   <div class="col-sm-5 text-danger p-0 py-2">
+      * (E-Mail should be all lowercase)
+   </div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Password:</label>
+   <div class="col-sm-3">
+      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+         <div *ngIf="f.password.errors['required']">Password is required:</div>
+         <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters:</div>
+      </div>
+   </div>
+   <div class="col-sm-5 text-danger p-0 py-2">
+      * (at least 7 characters)
+   </div>
+</div>
+<div class="mb-3 row register_row">
+   <label class="col-sm-1 col-form-label fw-bold">Confirm Password:</label>
+   <div class="col-sm-3">
+      <input type="confirmpassword" formControlName="confirmpassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }" />				
+      <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+         <div *ngIf="f.confirmpassword.errors['required']">Confirm Password is required:</div>
+         <div *ngIf="f.confirmpassword.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+      </div>
+   </div>
+   <div class="col-sm-1 text-danger p-0 py-2">*</div>
+</div>
+<h5 class="my_dark_bg p-2 rounded mb-3">Newsletter and Email Details</h5>
+<div class="mb-3 row register_row">
+   <div class="form-check px-2">
+      <input class="form-check-input ms-1" formControlName="customers_newsletter" type="checkbox" value="1">
+      <label class="form-check-label fw-bold ps-2">Subscribe to Our Newsletter.</label>
+   </div>
+   <div class="col-sm-3">
+      <input type="radio" formControlName="customers_email_format" class="form-check-label" value="HTML" checked="true" id="email-format-html">
+      <label class="text_html fw-bold ps-2">HTML</label>
+      <input type="radio" class="form-check-label ms-3" formControlName="customers_email_format" value="TEXT" >
+      <label class="text_html fw-bold ps-2">TEXT-Only</label>			
+   </div>
+</div>
+<h5 class="my_dark_bg p-2 rounded mb-3">How did you hear about us?</h5>
+<div class="mb-3 row register_row">
+   <div class="col-sm-3">
+      <select formControlName="customers_advertisement" class="form-control form-select">
+         <option selected="selected" value="">==SELECT==</option>
+         <option value="Catalog in Mail">Catalog in Mail</option>
+         <option value="Yahoo">Yahoo</option>
+         <option value="Google">Google</option>
+         <option value="Hardware Retail Magazine">Hardware Retail Magazine</option>
+         <option value="ALOA">ALOA</option>
+         <option value="Clar Star">Clear Star</option>
+         <option value="Ace Hardware">Ace Hardware</option>
+         <option value="True Value">True Value</option>
+         <option value="Do It Best">Do It Best</option>
+         <option value="Orgill">Orgill</option>
+         <option value="Pop A Lock">Pop A Lock</option>
+         <option value="Email">E-mail</option>
+         <option value="Flyer in the Mail">Flyer in the Mail</option>
+         <option value="Phone Call">Phone Call</option>
+         <option value="Friend">Friend</option>
+         <option value="Other">Other</option>
+      </select>
+   </div>
+</div>
+<div>
+   <button [disabled]="loading" class="botton btn-blue">
+   <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+   Submit
+   </button>
+</div>
+</form>
+</div>
+</section> 

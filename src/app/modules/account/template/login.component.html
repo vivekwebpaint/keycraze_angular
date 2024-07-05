@@ -1,0 +1,60 @@
+﻿<section class="login_page col-md-12">
+<div class="container">
+<div class="row">
+    <div class="col col-lg-6">
+        <h4 class="border-bottom py-1 mb-3 text-danger">New Customers</h4>
+        <p>Create a Customer Profile with <strong>Key Craze, Inc.</strong> which allows you to shop faster, track the status of your current orders, review your previous orders and take advantage of our other member's benefits.</p>
+        <form class="sign_up_btn text-right" name="create" action="/" method="post"> 
+		<button [disabled]="loading" routerLink="../register" class="botton btn-blue botton-big-size pb-2 px-3">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Sign Up
+        </button>
+            
+        </form>
+    </div>
+    <div class="col col-lg-6">
+        <h4 class="border-bottom py-1 mb-3">Returning Customers</h4>
+        <p>In order to continue, please login to your <strong>Key Craze, Inc.</strong> account.</p>        
+        <form class="login_form" id="loginForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="mb-3 row col-sm-9 mobile_input">
+                <label class="col-sm-4 col-form-label fw-bold">Email Address:</label>
+				<div class="col-sm-8 email_small_text">
+					<input type="text" formControlName="email" class="form-control" ngModel email="true" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors['required']">Email is required</div>
+                    <div *ngIf="f.email.errors['email']">Please enter email</div>
+                </div>
+				</div>
+            </div>
+            <div class="mb-3 row col-sm-9 mobile_input">
+                <label class="col-sm-4 col-form-label fw-bold">Password:</label>				
+				<div class="col-sm-8">
+					<input id="login-password" [type]="show ? 'text' : 'password'" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors['required']">Password is required</div>
+                </div>
+				</div>	
+            </div>           
+            <div class="mb-3 row col-sm-9 mobile_input">
+				<label class="col-sm-4 col-form-label fw-bold"></label>
+				<div class="col-sm-8">
+					<input class="show_input" type="checkbox" (click)="password()"> {{show ? 'Hide' : 'Show'}} Password
+				</div>
+			</div>
+           <div class="mb-3 row col-sm-12 d-flex flex-wrap align-items-center btn_login">	
+			<div class="col-sm-6 d-inline-block align-middle">
+				<a class="botton btn-blue botton-big-size pb-2 px-3 float-start" href="/password-forgotten">Forgot your password?</a>
+			</div>		   
+			<div class="col-sm-6 text-right">
+                <button [disabled]="loading" class="botton btn-green botton-big-size pb-2 px-3">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Login Now
+                </button>
+			</div>	
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
+</section>   

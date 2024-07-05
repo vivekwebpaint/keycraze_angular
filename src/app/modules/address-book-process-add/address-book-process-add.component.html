@@ -1,0 +1,93 @@
+<section class="add_address col-md-12 mt-3">
+<div class="container">
+<div class="row">	    
+	<div class="col-md-12">
+		<h3 class="border-bottom pb-2">My Account Information</h3>
+		<div class="text-danger my-3 mb-4">* Required information</div>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">	 
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">First Name:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_firstname" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_firstname.errors }" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Last Name:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_lastname" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_lastname.errors }" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Company Name:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_company" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_company.errors }" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Street Address:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_street_address" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_street_address.errors }" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Address Line 2:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_suburb" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_suburb.errors }" />
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">City:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" formControlName="entry_city" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_city.errors }" />
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">State/Province:</label>		
+		   <div class="col-sm-3">
+			  <select class="form-control form-select" formControlName="entry_state" [ngClass]="{ 'is-invalid': submitted && f.entry_state.errors }">
+				 <option value="">Please select ...</option>
+				 <option *ngFor="let i of stateData" [value]="i.zone_id">{{i.zone_name}}</option>
+			  </select>
+		   </div>
+		</div>		
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Post/Zip Code:</label>		
+		   <div class="col-sm-3">
+			  <input formControlName="entry_postcode" type="text" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_postcode.errors }" />
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Country:</label>		
+		   <div class="col-sm-3">
+			  <select rel="dropdown" class="form-control form-select" (ngModelChange)="onCountryChange($event)" formControlName="entry_country_id" [ngClass]="{ 'is-invalid': submitted && f.entry_country_id.errors }">
+				 <option value="">Please Choose Your Country</option>
+				 <option value="223">United States</option>
+				 <option value="13">Australia</option>
+				 <option value="38">Canada</option>
+				 <option value="73">France</option>
+				 <option value="81">Germany</option>
+				 <option value="88">Guam</option>
+				 <option value="138">Mexico</option>
+				 <option value="153">New Zealand</option>
+				 <option value="172">Puerto Rico</option>
+				 <option value="222">United Kingdom</option>
+			  </select>
+		   </div>
+		</div>			
+		<div class="col-sm-3">
+		    <input value="1" type="checkbox" formControlName="primary_address" class="form-check-input">
+		    <label class="text_html fw-bold ps-1">Set as Primary Address</label>		
+		</div>
+		<div class="col-sm-3 my-4">
+		    <button class="botton btn-blue">
+				 Submit the Information 
+			</button>
+			<a href="/address-book" class="botton btn-blue ms-2">
+				Back
+			</a>				
+		</div>
+		</form>
+	</div>	
+</div>
+</div>
+</section>

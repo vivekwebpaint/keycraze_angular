@@ -1,0 +1,116 @@
+<div class="product_page col-md-12">
+<div class="container">
+<div class="row" ng-app="products" *ngIf="products.length != 0">
+		<div class="pagination col-md-12 ps-2">
+				<div class="Product_count col-md-4"> Displaying <strong>{{p * (40)+1-(40)}} to 
+					<span *ngIf="ConvertString(count) < p * 40">{{count}}</span> 
+					<span *ngIf="ConvertString(count) > p * 40">{{p * 40}}</span> 
+				</strong> (of <strong>{{count}}</strong> Products)</div>
+				<div class="d-flex justify-content-end col-md-8">					
+					<pagination-controls
+                      (pageChange)="pageChanged(p = $event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                     [maxSize]="5"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+					</pagination-controls>
+				</div>
+		</div>
+	<div id="pid-{{x.products_id}}" class="col-md-3 mb-4 product_box" [ngClass]="{'product-shadow': cartDetails.includes(x.products_id)}" *ngFor="let x of products | paginate: { itemsPerPage: 40, currentPage: p, totalItems: count } ;let i = index;">
+		<div class="shadow-sm border p-3 pid-{{x.products_id}}"> 
+			<div class="row">
+			<div class="product_image col-md-4">
+				<div class="dubble_hover">
+					<a href="/product/{{x.products_id}}">
+						<img src="{{images_Url}}/images/{{x.products_image}}" alt="SUB1-ILCO" title="SUB1-ILCO" width="24" height="80">
+					</a>
+					<a href="/product/{{x.products_id}}">
+						<img src="{{images_Url}}/images/{{x.products_image}}" alt="SUB1-ILCO" title="SUB1-ILCO" width="24" height="80">
+					</a>
+					
+				</div>
+				<a *ngIf="x.products_description.includes('iframe')" class="products_video float-start pt-3" href="/product/{{x.products_id}}"><b><img src="/assets/images/watch-video.png" alt="Watch Video"></b></a>
+			</div>
+			<div class="product_discripition col-md-8 text-center">
+				<a class="text-dark fw-bold" href="/product/{{x.products_id}}">{{x.products_model}}</a>
+				<div class="qty">
+					Item: <a class="text-dark" href="/product/{{x.products_id}}">{{x.products_name}}</a>
+                </div>
+				
+				<div *ngIf="x.discounted_price  != 0; else elseBlock">
+					<div class="product_price discount">
+            		<del>Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}</del>
+            	</div>
+				<div class="discounted_price">
+					Discounted Price: ${{ x.discounted_price  | number : '1.2-2'}} 
+				</div>
+				</div>
+				<ng-template #elseBlock>
+					<div class="product_price">
+            		Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}
+            	</div>
+				</ng-template>
+
+				<form name="f_cart_quantity_{{x.products_id}}">
+				   <div class="product_qty">
+					  <select class="my-2" name="cart_quantity" #cart_qty>					  	
+					  	<option
+				        *ngFor="let price of ToArray(x.options);let j = index"
+				        [ngValue]="price"
+				        value="{{price}}"
+				        class="dropdown-item"
+				        [selected]="j == 0">{{price}}</option>
+					  </select>
+				   </div>
+				   <div class="product_btn">
+					  <div *ngIf="x.products_quantity <= 0" class="out_of_stock" colspan="2">
+					  	<input id="submit2" class="botton btn-red" value="Out of Stock" type="button" disabled=""><br/>Qty in Stock: 0
+					  	<div *ngIf="user">
+						  	
+						  <div class="subscrib_noti fw-bold" *ngIf="NotifiedList.includes(x.products_id); else elseBlock">
+								You have been successfully subscribed to the Back In Stock Notification List.
+							</div>
+							<ng-template #elseBlock>
+								<div class="notify_btn_main mt-2" *ngIf="showNotify"> 
+									<input class="notify_btn botton btn-green-small" (click)="notifyMe(x.products_id, x.products_model)" type="submit" value="Notify Me" name="notify_me_x">
+							  </div>
+							  	<div *ngIf="notifyMsg">
+								  <p *ngIf="notifyMsg['product_id']==x.products_id">{{notifyMsg.msg}}</p>
+								</div>
+							</ng-template>
+						</div>
+					  </div>
+					  <div *ngIf="x.products_quantity > 0" class="in_stock" colspan="2">
+					  		<input (click)="_addItemToCart(x.products_id, cart_qty.value)" id="submit2" class="botton btn-blue" value="Add To Cart" type="button">
+					  </div>
+				   </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div class="pagination col-md-12 ps-2">
+		<div class="Product_count col-md-4"> Displaying <strong>{{p * (40)+1-(40)}} to 
+					<span *ngIf="ConvertString(count) < p * 40">{{count}}</span> 
+					<span *ngIf="ConvertString(count) > p * 40">{{p * 40}}</span> 
+				</strong> (of <strong>{{count}}</strong> Products)</div>
+		<div class="d-flex col-md-8 justify-content-end">
+		    <pagination-controls
+              (pageChange)="pageChanged(p = $event)"
+              (pageBoundsCorrection)="pageChanged($event)"
+              [maxSize]="5"
+              previousLabel="Previous"
+              nextLabel="Next"
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page">
+			</pagination-controls>
+		</div>
+		</div>
+</div>
+</div>
+</div>

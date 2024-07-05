@@ -1,0 +1,54 @@
+<section class="my_account_edit col-md-12 mt-3">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="container">
+<div class="row">	    
+	<div class="col-md-12 mobile_input" *ngIf="AccountData">
+		<h3 class="border-bottom pb-2">My Account Information</h3>
+		<div class="text-danger my-3 mb-4">* Required information</div>
+		
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">First Name:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" value="{{AccountData.customers_firstname}}" formControlName="firstName" class="form-control" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Last Name:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" value="{{AccountData.customers_lastname}}" formControlName="lastName" class="form-control" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Email Address:</label>		
+		   <div class="col-sm-3 email_small_text">
+			  <input type="email" value="{{AccountData.customers_email_address}}" formControlName="email" class="form-control" />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Telephone:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" value="{{AccountData.customers_telephone}}" formControlName="telephone" class="form-control" appPhoneMask />
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-1 col-form-label fw-bold">Fax Number:</label>		
+		   <div class="col-sm-3">
+			  <input type="text" value="{{AccountData.customers_fax}}" formControlName="fax" class="form-control" />
+		   </div>
+		</div>		
+		<h5 class="border-bottom pb-2">Newsletter and Email Details</h5>
+		<div class="col-sm-3">
+		    <input type="radio" formControlName="customers_email_format" class="form-check-label" value="HTML" [checked]="AccountData.customers_email_format == 'HTML' ? true : false" id="email-format-html">
+		    <label class="text_html fw-bold ps-2">HTML</label>
+		    <input [checked]="AccountData.customers_email_format == 'TEXT' ? true : false" type="radio" class="form-check-label ms-3" formControlName="customers_email_format" value="TEXT" >
+			<label class="text_html fw-bold ps-2">TEXT-Only</label>			
+		</div>
+		<div class="col-lg-3 my-4">
+			<button class="botton btn-blue">Update</button>	
+		    <a href="my-account" class="botton btn-blue ms-2">Back</a>			
+		</div>
+	</div>	
+</div>
+</div>
+</form>
+</section>

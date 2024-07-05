@@ -1,0 +1,121 @@
+<div *ngFor="let x of products">
+<section class="single_product col-md-12 pt-4">
+<div class="container">
+<div class="row">
+	<div class="col-md-4 single_product_left mb-4" id="pid-{{x.products_id}}" [ngClass]="{'product-shadow': cartDetails.includes(x.products_id)}">	
+		<div class="single_probox border shadow-sm">
+		    <div class="product_count header-dark p-2 mb-3 text-white text-center">Product 482/746</div>
+			<div class="nav_next_prev d-flex">
+				<!--<div class="product_next nav_prev col-md-3">
+					<a href="#">
+						<i aria-hidden="true" class="fa fa-chevron-left"></i>
+					</a>
+				</div>-->
+				<div class="product_next col-lg-12 text-center w-100">
+				<a class="text-dark" href="">
+				<i aria-hidden="true" class="fa fa-list"></i> 
+					<span class="cssButton normal_button button  button_return_to_product_list" onmouseover="this.className='cssButtonHover normal_button button  button_return_to_product_list button_return_to_product_listHover'" onmouseout="this.className='cssButton normal_button button  button_return_to_product_list'">&nbsp;Return to the Product List&nbsp;
+					</span>
+				</a>
+				</div>
+			</div>
+			<div class="row px-3 pb-2 pt-4">
+			    <div class="product_image col-md-4 text-center">
+				<div class="dubble_hover">
+					<a class="d-block">
+						<img class="single_height" src="{{images_Url}}/images/{{x.products_image}}" alt="SUB1-ILCO" title="SUB1-ILCO" width="24" height="80">					
+						<!--<span class="single_link w-100 float-start">Larger Image</span>-->
+					</a>
+				</div>
+				</div>
+				
+				<div class="product_discripition col-md-8 text-center">
+					<div class="text-dark fw-bold pb-1">Item# {{x.products_model}}</div>
+					<ul class="w-auto d-inline-block p-0 m-0">
+						<li>Description {{x.products_name}}</li>
+					</ul>
+
+					<div *ngIf="x.discounted_price  != 0; else elseBlock">
+						<div class="product_price discount">
+		            		<del>Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}</del>
+		            	</div>
+						<div class="discounted_price py-1">
+							Discounted Price: 
+							 ${{ x.discounted_price  | number : '1.2-2'}} 
+							 <p *ngIf="x.products_discount_qty"> if you buy minimum {{x.products_discount_qty}} </p>
+						</div>
+					</div>
+					<ng-template #elseBlock>
+						<div class="product_price py-1">
+		            		Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}
+		            	</div>
+					</ng-template>
+
+					<div class="product_qty pt-2 pb-3">
+					   Qty
+					   <select name="cart_quantity" #cart_qty>					  	
+					  	<option
+				        *ngFor="let price of ToArray(x.options);let j = index"
+				        [ngValue]="price"
+				        value="{{price}}"
+				        class="dropdown-item"
+				        [selected]="j == 0">{{price}}</option>
+					  </select>
+					</div>
+					<div class="product_btn">
+					  <div *ngIf="x.products_quantity <= 0" class="out_of_stock" colspan="2">
+					  	<input id="submit2" class="botton btn-red" value="Out of Stock" type="button" disabled=""><br/>Qty in Stock: 0
+					  	<p>Qty in PO: {{x.quantity_on_purchase_orders}}</p>
+					  	<div *ngIf="user">
+						  	
+						  <div class="subscrib_noti fw-bold" *ngIf="NotifiedList.includes(x.products_id); else elseBlock">
+								You have been successfully subscribed to the Back In Stock Notification List.
+							</div>
+							<ng-template #elseBlock>
+								<div class="notify_btn_main mt-2" *ngIf="showNotify"> 
+									<input class="notify_btn botton btn-green-small" (click)="notifyMe(x.products_id, x.products_model)" type="submit" value="Notify Me" name="notify_me_x">
+							  </div>
+							  	<div *ngIf="notifyMsg">
+								  <p *ngIf="notifyMsg['product_id']==x.products_id">{{notifyMsg.msg}}</p>
+								</div>
+							</ng-template>
+						</div>
+					  </div>
+					  	<div *ngIf="x.products_quantity > 0" class="in_stock" colspan="2">
+					  		<input (click)="_addItemToCart(x.products_id, cart_qty.value)" id="submit2" class="botton btn-blue" value="Add To Cart" type="button">
+					  		<p class="p-1" *ngIf="user">Qty in Stock: {{x.products_quantity}}</p>
+					  	</div>
+				   </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="single_additional d-flex flex-wrap align-items-center w-auto" *ngIf="additional_images">	
+		<div class="additional_img border shadow-sm p-3 mb-4" *ngFor="let im of additional_images">
+			<a href="{{images_Url}}/{{im.products_image}}">
+				<img class="img-fluid w-100" src="{{images_Url}}/{{im.products_image}}" alt="" width="100" height="80">
+			</a>
+		</div>
+	</div>
+</div>
+</div>
+</section>
+<section class="single_product_main_dec col-md-12 pt-4">
+<div class="container">
+	<p [innerHTML]="x.products_description |  safeHTML"></p>
+</div>
+</section>
+<div class="also_purchased col-md-12 mt-3 mb-2">
+<div class="container">
+<div class="row">
+	<div class="product_image col-md-4 text-center mt-4" *ngFor="let ap of also_purchased">
+		<p><a href="/product/{{ ap.products_id }}">
+			<img src="{{images_Url}}/images/{{ap.products_image}}" alt="" title="" width="24" height="80">
+			</a>
+		</p>
+		<p><a class="fw-bold pt-3" href="#">{{ap.products_model}}</a></p>
+	</div>
+</div>
+</div>
+</div>
+</div>

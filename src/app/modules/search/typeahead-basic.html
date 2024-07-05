@@ -1,0 +1,119 @@
+ <div class="col col-md-6 search_product d-inline-block align-middle p-1">
+  <form class="navbar-form w-100" role="search">
+    <div class="input-group add-on">
+        <input id="typeahead-basic" (input)="searchPros($event.target)" class="form-control" placeholder="Search Products" name="q" type="text" #keyword>
+    <div class="input-group-btn">
+      <button class="botton btn-blue rounded-0 rounded-end" (click)="select_result(keyword.value)" type="submit">Search</button>
+    </div>
+    </div>
+</form>
+
+<div class="product_page page_search my_light_bg col-md-12 position-absolute"  *ngIf="(productsData$ | async) as products">
+<div class="row m-0" *ngIf="show_search_modal">
+ 
+<p class="pt-3 m-0 text-start ps-3" [ngClass]="{'pb-3': products.products.length <= 0}">{{products.products.length}} Results found</p>
+ <span class="close_serach" (click)="close_search()">
+	<i class="fa fa-times-circle" aria-hidden="true"></i>
+</span>
+<div id="searchpid-{{x.products_id}}" class="col-md-4 p-3 search_product_box" [ngClass]="{'product-shadow': cartDetails.includes(x.products_id)}" *ngFor="let x of products.products ;let i = index;">
+    <div class="shadow-sm border p-3 pid-{{x.products_id}}"> 
+      <div class="row">
+      <div class="product_image col-md-4">
+        <div class="dubble_hover">
+          <a href="/product/{{x.products_id}}">
+            <img src="{{images_Url}}/images/{{x.products_image}}" alt="SUB1-ILCO" title="SUB1-ILCO" width="24" height="80">
+          </a>
+          <a>
+            <img src="{{images_Url}}/images/{{x.products_image}}" alt="" width="100" height="80">
+          </a>
+        </div>
+        <a class="products_video float-start pt-3" href="/product/{{x.products_id}}"><b><img src="/assets/images/watch-video.png" alt="Watch Video"></b></a>
+      </div>
+      <div class="product_discripition col-md-8 text-center">
+          <a class="text-dark fw-bold" href="/product/{{x.products_id}}">{{x.products_model}}</a>
+        <div class="qty">
+          Item: <a class="text-dark" href="/product/{{x.products_id}}">{{x.products_name}}</a>
+                </div>
+        
+        <div *ngIf="x.discounted_price  != 0; else elseBlock">
+          <div class="product_price discount">
+                <del>Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}</del>
+              </div>
+          <div class="discounted_price">
+            Discounted Price: ${{ x.discounted_price  | number : '1.2-2'}} </div>
+        </div>
+        <ng-template #elseBlock>
+          <div class="product_price">
+                Regular<span> Price</span> ${{x.products_price | number : '1.2-2'}}
+              </div>
+        </ng-template>
+
+        <form name="f_cart_quantity_{{x.products_id}}">
+           <div class="product_qty">
+            <select class="my-2" name="cart_quantity" #cart_qty>             
+              <option
+                *ngFor="let price of ToArray(x.options);let j = index"
+                [ngValue]="price"
+                value="{{price}}"
+                class="dropdown-item"
+                [selected]="j == 0">{{price}}</option>
+            </select>
+           </div>
+           <div class="product_btn">
+            <div *ngIf="x.products_quantity <= 0" class="out_of_stock" colspan="2">
+              <input id="submit2" class="botton btn-red" value="Out of Stock" type="button" disabled=""><br/>Qty in Stock: 0
+              <div *ngIf="user">
+                
+              <div class="subscrib_noti fw-bold" *ngIf="NotifiedList.includes(x.products_id); else elseBlock">
+                You have been successfully subscribed to the Back In Stock Notification List.
+              </div>
+              <ng-template #elseBlock>
+                <div class="notify_btn_main mt-2" *ngIf="showNotify"> 
+                  <input class="notify_btn botton btn-green-small" (click)="notifyMe(x.products_id, x.products_model)" type="submit" value="Notify Me" name="notify_me_x">
+                </div>
+                  <div class="subscrib_noti fw-bold" *ngIf="notifyMsg">
+                  <p *ngIf="notifyMsg['product_id']==x.products_id">{{notifyMsg.msg}}</p>
+                </div>
+              </ng-template>
+            </div>
+            </div>
+              <div *ngIf="x.products_quantity > 0" class="in_stock" colspan="2">
+                <input (click)="_addItemToCart(x.products_id, cart_qty.value)" id="submit2" class="botton btn-blue" value="Add To Cart" type="button">
+              </div>
+           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+<div *ngIf="show_search_key" class="col col-md-6 drop_search d-inline-block align-middle p-1">
+  <div class="input-group add-on">
+      <div class="col col-md-12">
+        <ng-select [searchable]="false" [clearable]="false" [(ngModel)]="keyMachines" (ngModelChange)="onChange($event)" placeholder="Select Your Key Machine">
+           <ng-option *ngFor="let i of select1" [value]="i.key">
+           <img class="m-1" src="{{i.image}}" width="100px"/>{{i.value}}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col col-md-12">
+        <select *ngIf="select2" class="form-control form-select" [ngModel]="keyMakes" (ngModelChange)="onMakeChange(keyMachines, $event)">
+            <option value="">Make</option>
+            <option [value]="i" *ngFor="let i of select2">{{i}}</option>
+        </select>
+      </div>
+      <div class="col col-md-12">
+        <select *ngIf="select3" class="form-control form-select" [ngModel]="keyModels" (ngModelChange)="onModelChange(keyMachines, keyMakes, $event)">
+            <option value="">Model</option>
+            <option [value]="i" *ngFor="let i of select3">{{i}}</option>
+        </select>
+      </div>
+      <div class="col col-md-12">
+        <select *ngIf="select4" class="form-control form-select" [ngModel]="keyYear" (ngModelChange)="onYearChange(keyMachines, keyMakes, keyModels, $event)">
+            <option value="">Year</option>
+            <option [value]="i" *ngFor="let i of select4">{{i}}</option>
+        </select>
+      </div>
+    </div>
+  </div>

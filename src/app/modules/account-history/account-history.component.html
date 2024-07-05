@@ -1,0 +1,39 @@
+<section class="my_order_history col-md-12 mt-3" *ngIf="history_data">
+<div class="container">
+<div class="row">
+    <h2 class="py-2 mb-0">My Order History</h2>	    
+	<div class="col-md-12 py-2" *ngFor="let x of history_data.order_history | paginate: { itemsPerPage: 10, currentPage: p, totalItems: count }">
+		<h5 class="border-bottom pb-1 mb-3">Order Number: {{x.orders_id}}</h5>
+		<p class="my-3">Order Status: {{x.orders_status_name}}</p>
+		<p class="m-0"><strong>Order Date:</strong> {{date_format(x.date_purchased)}}</p>
+		<p class="m-0"><strong>Shipped To:</strong> {{x.delivery_name}}</p>
+		<p class="m-0"><strong>Products:</strong> {{x.products}}</p>
+		<p class="m-0"><strong>Order Cost:</strong> {{x.order_total}}</p>
+		<div class="my-2"><a href="/account-history-view-order/{{x.orders_id}}" class="botton btn-blue">View</a></div>
+	</div>
+	<div class="col-md-12">
+		<div class="pagination">
+				<div class="d-flex justify-content-end">					
+					<pagination-controls
+                      (pageChange)="pageChanged(p = $event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                     (maxSize)="100"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+					</pagination-controls>
+				</div>
+		</div>
+		<div class="Product_count col-md-4"> Displaying <strong>{{p * (10)+1-(10)}} to 
+					<span *ngIf="ConvertString(count) < p * 10">{{count}}</span> 
+					<span *ngIf="ConvertString(count) > p * 10">{{p * 10}}</span> 
+				</strong> (of <strong>{{count}}</strong> Orders)</div>
+	</div>
+	<div class="col-md-12 py-2">
+		<div class="my-2"><a href="/my-account" class="botton btn-blue">Back</a></div>
+	</div>	
+</div>
+</div>
+</section>

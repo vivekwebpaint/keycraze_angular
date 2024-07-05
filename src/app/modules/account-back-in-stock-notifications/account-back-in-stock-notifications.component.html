@@ -1,0 +1,61 @@
+<section class="account_notification col-md-12 mt-3">
+	<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+	<div class="container">
+	<div class="row">	    
+			<div class="col-md-12">
+				<h2>Back In Stock Notifications</h2>
+				<p class="pt-2">Below is a list of the Back In Stock Notification Lists to which you are subscribed.</p>
+				<p>To unsubscribe from a list, uncheck (clear) the box beside the appropriate product and click “Update”.</p>
+			</div>
+			<div class="col-md-12">				
+				<h4 class="border-bottom pb-2 mt-3">Your current Back In Stock Notification Subscription(s)</h4>
+			<div class="mobile_table">	
+			<table class="table table-striped mt-4 border mobile_table" *ngIf="product_data">
+			   <tbody class="product-shadow">
+				  <tr class="cartTableHeading">
+					 <th>Subscribed</th>
+					 <th>Product</th>
+					 <th>Image</th>
+					 <th>Qty in Stock</th>
+					 <th></th>
+					 <th>Date Subscribed</th>
+				  </tr>
+				  <tr  [ngClass]="{'shadow-sm': cartDetails.includes(x.products_id)}" id="pid-{{x.products_id}}" class="rowEven" *ngFor="let x of product_data; let i=index">
+					 <td><input type="checkbox" [value]="x.products_id" (change)="onCheckboxChange($event)"  checked="true" class="form-check-input"></td>
+					 <td><a href="/product/{{x.products_id}}">{{x.products_model}}</a></td>
+					 <td><img width="50px" src="{{images_Url}}/images/{{x.products_image}}"/></td>
+					 <td>{{x.products_quantity}}</td>
+					 <td>
+					 	<div class="product_qty">
+						 	<select class="my-2" name="cart_quantity" #cart_qty>					  	
+						  	<option
+					        *ngFor="let price of ToArray(x.options);let j = index"
+					        [ngValue]="price"
+					        value="{{price}}"
+					        class="dropdown-item"
+					        [selected]="j == 0">{{price}}</option>
+						  </select>
+						</div>
+						<div class="product_btn">
+					  <div *ngIf="x.products_quantity <= 0" class="out_of_stock" colspan="2">
+					  	<input id="submit2" class="botton btn-red" value="Out of Stock" type="button" disabled="">
+					  </div>
+					  <div *ngIf="x.products_quantity > 0" class="in_stock" colspan="2">
+					  		<input (click)="_addItemToCart(x.products_id, cart_qty.value)" id="submit2" class="botton btn-blue" value="Add To Cart" type="button">
+					  </div>
+				   </div>
+					 </td>
+					 <td>{{date_format(x.date_subscribed)}}</td>
+				  </tr>
+				  
+			   </tbody>
+			</table>
+			</div>
+				<div class="col-lg-3 my-4">
+					<button class="botton btn-blue">Update</button>			
+				</div>
+			</div>					
+	</div>
+	</div>
+	</form>
+</section>

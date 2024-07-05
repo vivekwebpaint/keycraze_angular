@@ -1,0 +1,96 @@
+<section class="checkout_order col-md-12 mt-3" *ngIf="shipping_method">
+<div class="container" *ngIf="payment_method">
+<div class="row">	    
+			<div class="col-md-8 mb-2"><h1>Step 3 of 3 - Review Order, Please Click Confirm</h1></div>
+			<div class="col-md-4 float-end">
+					<button (click)="submitOrder(1)" type="submit" class="botton btn-green botton-big-size pb-2 px-3 float-end">Click Here to Confirm Your Order 
+					<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+				</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="mt-3 mb-3">Billing/Payment Information</h3>
+						<h4 class="mt-3 mb-3">Payment Method: <a class="botton btn-blue float-end" href="checkout_payment">Edit</a></h4>
+						<h5 class="mt-3 mb-3">{{payment_method.payment_method}}</h5>
+						<h5 class="mt-3 mb-3" *ngIf="payment_method.po_number">PO: {{payment_method.po_number}}</h5>
+						<p class="m-0">Key Craze, Inc.</p>
+						<p class="m-0">8372 Carbide Ct.</p>
+						<p class="m-0">Sacramento, CA. 95828</p>
+						<p class="m-0" *ngIf="payment_method.card_name">Card Owner's Name: {{payment_method.card_name}}</p>
+						<p class="m-0" *ngIf="payment_method.card_exp">Expiration Date: {{payment_method.card_exp}} / {{payment_method.card_exp_year}}</p>
+						<p class="m-0" *ngIf="payment_method.card_cvv">CVV Number: {{payment_method.card_cvv}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="mt-3 mb-3">Delivery/Shipping Information</h3>
+						<a class="botton btn-blue float-end" href="/checkout_shipping">Edit</a>
+						<p class="m-0">{{addressData.entry_company}}</p>
+						<p class="m-0">{{addressData.entry_firstname}} {{addressData.entry_lastname}}</p>
+						<p class="m-0">{{addressData.entry_street_address}}</p>
+						<p class="m-0">{{addressData.entry_city}}, {{addressData.zone_name}} {{addressData.entry_postcode}}</p>
+						<p class="m-0">{{addressData.countries_name}}</p>	
+						<h4 class="mt-3 mb-2">Shipping Method:</h4>
+						<p class="m-0">{{shipping_method.shipping_method['label']}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 border-bottom border-top py-3 mt-3" *ngIf="payment_method.special_instructions">
+				<h3>Special Instructions or Order Comments</h3>
+				<div class="mt-3">{{payment_method.special_instructions}} <a class="botton btn-blue float-end" href="/checkout_payment">Edit</a>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<h3 class="mt-3 mb-1">Shopping Cart Contents</h3>
+				<div class="pt-4">
+					<a class="botton btn-blue" href="/cart">Edit</a>
+				</div>
+			<div class="mobile_table">	
+			<table class="table table-striped mt-4 border" id="">
+			   <tbody>
+				  <tr class="cartTableHeading">
+					 <th>Qty.</th>
+					 <th>Item Number</th>
+					 <th>Item Description </th>
+					 <th>Total</th>
+				  </tr>
+				  <tr class="rowEven" *ngFor="let x of cartDetails">
+					 <td>{{x.qty}}</td>
+					 <td>{{x.name}}</td>
+					 <td>{{x.model}}</td>
+					 <td>${{x.subtotal | number : '.2-2'}}</td>
+				  </tr>
+				  
+			   </tbody>
+			</table>
+			</div>
+			</div>		
+			<div class="col-md-12 mt-1">	
+				<div class="sub_total float-end w-100 d-flex justify-content-end">
+					<p class="m-0">Sub-Total:</p>
+					<p class="m-0 ms-3">${{shipping_method.total  | number : '.2-2' }}</p>
+				</div>
+				<div class="sub_total float-end w-100 d-flex justify-content-end py-2">
+					<p class="m-0">{{shipping_method.shipping_method.label }}:</p>
+					<p class="m-0 ms-3">${{shipping_method.shipping_method['price'] | number : '.2-2' }}</p>
+				</div>
+				<div class="sub_total float-end w-100 d-flex justify-content-end">
+					<p class="m-0">Total:</p>
+					<p class="m-0 ms-3">${{ shipping_method.total + shipping_method.shipping_method['price']  | number : '.2-2' }}</p>
+				</div>
+			</div>
+			<div class="col-md-12 continue_btn mt-3 mb-4">
+				<div class="float-start">					
+					<p class="fw-bold m-0">Final Step</p>
+					<p class="m-0">- continue to confirm your order. Thank you!</p>
+				</div>
+				<div class="float-end">
+					<button (click)="submitOrder(1)" type="submit" class="botton btn-green botton-big-size pb-2 px-3">Click Here to Confirm Your Order 
+					<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+				</div>
+		    </div>
+</div>
+</div>
+</section>

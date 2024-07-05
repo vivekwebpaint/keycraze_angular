@@ -1,0 +1,51 @@
+<section class="my_account col-md-12 mt-3">
+	<div class="container">
+	<div class="row">	    
+			<div class="col-md-12">
+				<h2>My Account Information</h2>
+				<p class="pt-2"><a href="/account-history">(show all orders)</a></p>
+			</div>
+			<div class="col-md-12">
+
+				<h4>Previous Orders</h4>
+				<div class="text-center">
+					<h2 class="border border-dark d-inline-block px-5 py-2 rounded" *ngIf="customer_account">Your Account Number is : {{customer_account}}</h2>
+				</div>
+			<div class="mobile_table">	
+			<table class="table table-striped border mt-3" id="">
+			   <tbody>
+				  <tr class="cartTableHeading">
+					 <th>Date</th>
+					 <th>No.</th>
+					 <th>Ship To</th>
+					 <th>Status</th>
+					 <th>Total</th>
+					 <th>View</th>
+				  </tr>
+				  <tr class="rowEven" *ngFor="let x of accountData">
+					 <td>{{date_format(x.date_purchased)}}</td>
+					 <td># {{x.orders_id}}</td>
+					 <td>{{x.delivery_name}} {{x.delivery_country}}</td>
+					 <td>{{x.orders_status_name}}</td>
+					 <td>{{x.order_total}}</td>
+					 <td><a class="botton btn-blue float-start" href="/account-history-view-order/{{x.orders_id}}">view</a></td>
+				  </tr>
+			   </tbody>
+			</table>
+			</div>		
+			</div>		
+			<div class="col-md-6 my-3">	
+				<h4 class="mb-3">My Account</h4>
+				<p class="m-0"><a href="/account-edit">View or change my account information.</a></p>
+				<p class="m-0"><a href="/address-book">View or change entries in my address book.</a></p>
+				<p class="m-0"><a href="/account-password">Change my account password.</a></p>
+			</div>
+			<div class="col-md-6 my-3">	
+				<h4 class="mb-3">Email Notifications</h4>
+				<p class="m-0"><a href="/account-newsletters">Subscribe or unsubscribe from newsletters.</a></p>
+				<p class="m-0"><a href="/account-back-in-stock-notifications">View or change my product notification list.</a></p>
+			</div>
+			
+	</div>
+	</div>
+	</section>

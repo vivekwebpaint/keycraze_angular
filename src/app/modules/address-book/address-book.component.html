@@ -1,0 +1,36 @@
+<section class="address_book col-md-12 py-3">
+<div class="container">
+<div class="row">	    
+		<div class="col-md-12">
+			<div *ngIf="primaryAddressData">
+				<h1>My Personal Address Book</h1>
+				<h4 class="py-2">Primary Address</h4>
+				<p class="m-0">{{primaryAddressData.entry_company}}</p>
+				<p class="m-0">{{primaryAddressData.customers_firstname}} {{primaryAddressData.customers_lastname}}</p>
+				<p class="m-0">{{primaryAddressData.entry_street_address}}</p>
+				<p class="m-0">{{primaryAddressData.entry_city}}, {{primaryAddressData.zone_name}} {{primaryAddressData.entry_postcode}}</p>
+				<p class="m-0">{{primaryAddressData.countries_name}}</p>
+				<p class="m-0 mt-3">This address is used as the pre-selected shipping and billing address for orders placed on this store.</p>
+				<p class="m-0 mt-3">This address is also used as the base for product and service tax calculations.</p>
+			</div>		
+			<h4 class="py-1 border-bottom mt-3">Address Book Entries</h4>
+			<div class="text-danger my-3 mb-4"><b>NOTE:</b> A maximum of 25 address book entries allowed.</div>
+			<div class="col-md-12 mt-3 text-uppercase" *ngFor="let x of addressData">
+				<h4 class="p-0">{{x.customers_firstname}} {{x.customers_lastname}}</h4>
+				<p class="m-0">{{ x.entry_company }}</p>
+				<p class="m-0">{{x.customers_firstname}} {{x.customers_lastname}}</p>
+				<p class="m-0">{{x.entry_street_address}}</p>
+				<p class="m-0">{{x.entry_city}}, {{x.zone_name}} {{x.entry_postcode}}</p>
+				<p class="m-0">{{x.countries_name}}</p>
+				<p class="m-0 mt-3">
+					<a href="/address-book-process/edit/{{x.address_book_id}}">Edit</a> <a class="ms-3" (click)="delete_address(x.address_book_id)">Delete</a>
+				</p>
+			</div>	
+			<div class="col-md-12 mt-3">
+				<p class="m-0 my-3"><a href="/address-book-process/add">Add Address</a></p>
+				<p><a href="/my-account" class="botton btn-blue">Back</a></p>
+			</div>				
+		</div>			
+</div>
+</div>
+</section>

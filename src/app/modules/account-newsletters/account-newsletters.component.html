@@ -1,0 +1,24 @@
+<section class="account_newsletter col-md-12 mt-3">
+	<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+		<div class="container">
+			<div class="row">	    
+				<div class="col-md-12">
+					<h2 class="pb-2">Newsletter Subscriptions</h2>
+					<h3 class="border-bottom pb-2 mb-4">General Newsletter</h3>
+					<div class="col-md-12">
+					    <input formControlName="newsletter" value="1" type="checkbox" class="form-check-input">
+					    <label class="text_html fw-bold ps-1">Including store news, new products, special offers, and other promotional announcements.</label>		
+					</div>
+					<div class="col-sm-3 my-4">
+					    <button class="botton btn-blue">
+							 Update
+						</button>
+						<a href="/my-account" class="botton btn-blue ms-2">
+							Back
+						</a>				
+					</div>
+				</div>	
+			</div>
+		</div>
+	</form>
+</section>

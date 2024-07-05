@@ -1,0 +1,375 @@
+<div *ngIf="show_cart" id="divfloatdiv" class="position-fixed top-50 end-0 zindex-fixed">
+    <a routerLink="../cart" [ngClass]="{'green-cart': Carttotal >= '100'}" class="cart_float">
+        <div id="gcv" class="float_total float-start w-auto">${{Carttotal | number : '.2-2'}}</div>
+        <div class="float_text fw-bold float-start w-100 text-center">View Cart »</div>
+        <div class="wheel">
+            <img src="https://keycraze.com/images/wheel.png">
+        </div>
+        <div class="wheel wheel_next">
+            <img src="https://keycraze.com/images/wheel.png">
+        </div>
+    </a>
+</div>
+<header class="head_main col-md-12 header-dark pt-2 pb-2">
+<div class="container">
+<div class="row d-flex flex-wrap align-items-center">
+  <div class="col col-md-1 logo_box">
+    <a routerLink="../"><img [src]="logoImage" width="150" height="84" alt="keycraze_logo"></a>
+  </div>
+  <div class="col col-md-3 phone_head text-white text-center">
+    <div class="w-50 d-inline-block align-middle">Call: <a class="text-white" routerLink="..tel:(800) 490-7539"> (800) 490-7539</a></div>
+    <div class="w-50 d-inline-block align-middle fw-bold">FREE Shipping on Orders Over $100 in USA</div>
+  </div>
+    <ngbd-typeahead-basic class="col col-md-5"></ngbd-typeahead-basic>
+    <div class="col col-md-1 re_order">
+        <a class="ez_img" routerLink="../order-history">
+            <img src="/assets/images/re_order.png" alt="EZ_Reordering" class="img-responsive reorder11">
+        </a>
+    </div>
+  <div class="col col-md-2 login_reg">
+    <div class="log-in-position float-end w-100">
+    <ul class="log-in-header margin-none list-unstyled w-100 float-end text-right mb-2">
+        <li *ngIf="!user" class="log_in login_register">
+             <a routerLink="../account/login">Login / Register</a>
+        </li>
+        <li *ngIf="user" class="welcome text-white">
+             Hello {{user.firstname}}
+        </li>
+        <li *ngIf="user" class="my-account">
+             <a routerLink="../my-account">My Account</a>
+        </li>
+        <li *ngIf="user" class="my-account">
+             <a class="text-white" (click)="logout()">Log Out</a>
+        </li>
+           
+    </ul>
+       <a routerLink="../cart" [ngClass]="{'green-cart': Carttotal >= '100'}" class="view-cart float-end text-right">
+      <img src="/assets/images/blue_shopping_cart.png" alt="cart" width="20" height="20"> View Cart <span id="topcart">${{Carttotal | number : '.2-2'}}</span> </a>
+    </div>
+    </div>
+</div>
+</div>
+</header>
+
+<nav class="navbar navbar-expand-lg nav-dark my_menu" aria-label="Tenth navbar example">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+        <ul class="navbar-nav flex-wrap justify-content-center text-uppercase">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="..#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="../category/199-color-key-blanks">Color Key Blanks</a>
+              <span expandMenu class="plus_minus">+</span>
+              <ul class="dropdown-menu">
+                <li><a routerLink="../category/65-color-key-blanks" title="Crazy Key Blanks">Crazy Key Blanks</a></li>
+                <li><a routerLink="../category/197-titanium-car-keys" title="Titanium Car Keys">Titanium Car Keys</a></li>
+                <li><a routerLink="../category/110-titanium-keys" title="Titanium Keys">Titanium Keys</a></li>
+                <li><a routerLink="../category/111-led-key-blanks" title="LED Key Blanks">LED Key Blanks</a></li>
+                <li><a routerLink="../category/114-ribbon-keys" title="Ribbon Keys">Ribbon Keys</a></li>
+                <li><a routerLink="../category/94-diva-key-blanks" title="Diva Key Blanks">Diva Key Blanks</a></li>
+                <li><a routerLink="../category/509-kool-key-blanks" title="Kool Key Blanks">Kool Key Blanks</a></li>
+                <li><a routerLink="../category/258-happy-key-blanks" title="Happy Key Blanks">Happy Key Blanks</a></li>
+              </ul>
+        </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/521">Regular Keys</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/66-bulk-key-blanks" title="bulk Key Blanks">Bulk Key Blanks</a></li>
+        <li><a routerLink="../category/212-mailbox-key-blanks" title="mailbox Key Blanks">Mailbox Key Blanks</a></li>
+        <li><a routerLink="../category/213-padlock-key-blanks" title="padlock Key Blanks">Padlock Key Blanks</a></li>
+        <li><a routerLink="../category/214-toolbox-key-blanks" title="toolbox Key Blanks">Toolbox Key Blanks</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/521-car-keys-and-remotes">Car Keys & Remotes</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/85-regular-car-keys" title="REGULAR CAR KEYS">REGULAR CAR KEYS</a></li>
+        <li><a routerLink="../category/218-car-remote-key-shells" title="CAR REMOTE KEY SHELLS">CAR REMOTE KEY SHELLS</a></li>
+        <li><a routerLink="../category/216-car-remote-shells" title="CAR REMOTE SHELLS">CAR REMOTE SHELLS</a></li>
+        <li><a routerLink="../category/261-car-remotes" title="CAR REMOTES">CAR REMOTES</a></li>
+        <li><a routerLink="../category/544-lishi-tools" title="LISHI TOOLS">LISHI TOOLS</a></li>
+        <li><a routerLink="../category/197-titanium-car-keys" title="TITANIUM CAR KEYS">TITANIUM CAR KEYS</a></li>
+        <li><a routerLink="../category/192-color-car-keys" title="COLOR CAR KEYS">COLOR CAR KEYS</a></li>
+        <li><a routerLink="../category/257-batteries" title="BATTERIES">BATTERIES</a></li>
+        <li><a routerLink="../category/271-emergency-key-blades" title="EMERGENCY KEY BLADES">EMERGENCY KEY BLADES</a></li>
+        <li><a routerLink="../category/252-transponder-chips" title="TRANSPONDER CHIPS">TRANSPONDER CHIPS</a></li>
+        <li><a routerLink="../category/270-silver-technology-transponder-keys" title="SILVER TECHNOLOGY KEYS">SILVER TECHNOLOGY KEYS</a></li>
+        <li><a routerLink="../category/507-strattec-keys" title="STRATTEC KEYS">STRATTEC KEYS</a></li>
+        <li><a routerLink="../category/518-hy-ko-chip-keys" title="HY-KO CHIP KEYS">HY-KO CHIP KEYS</a></li>
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" routerLink="..#">JMA KEYS</a>
+        <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">  
+            <li><a routerLink="../category/184-jma-clonable-keys" title="JMA CLONABLE KEYS">JMA CLONABLE KEYS</a></li>
+            <li><a routerLink="../category/140-jma-car-transponder-keys" title="JMA TRANSPONDER KEYS">JMA TRANSPONDER KEYS</a></li>
+            <li><a routerLink="../category/189-jma-shell-keys" title="JMA SHELL KEYS">JMA SHELL KEYS</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" routerLink="..#">ILCO KEYS</a>
+          <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">  
+            <li><a routerLink="../category/516-flip-blades-and-housings" title="FLIP BLADES &amp; HOUSINGS">FLIP BLADES &amp; HOUSINGS</a></li>
+            <li><a routerLink="../category/260-gti-chip-and-gts-shells" title="GTI CHIP AND GTS SHELLS">GTI CHIP AND GTS SHELLS</a></li>
+            <li><a routerLink="../category/185-ilco-heads-and-blades" title="ILCO HEADS &amp; BLADES">ILCO HEADS &amp; BLADES</a></li>
+            <li><a routerLink="../category/188-ilco-car-transponder-keys" title="ILCO TRANSPONDER KEYS">ILCO TRANSPONDER KEYS</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" routerLink="..#">KEYLINE KEYS</a>
+          <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+            <li><a routerLink="../category/517-keyline-chips-and-pods" title="KEYLINE CHIPS &amp; SHELLS">KEYLINE CHIPS &amp; PODS</a></li>
+            <li><a routerLink="../category/246-keyline-head-and-blades" title="KEYLINE HEAD &amp; BLADES">KEYLINE HEAD &amp; BLADES</a></li>
+            <li><a routerLink="../category/245-keyline-transponder" title="KEYLINE TRANSPONDER">KEYLINE TRANSPONDER</a></li>
+            <li><a routerLink="../category/247-keyline-clonable-fobs" title="KEYLINE CLONABLE FOBS">KEYLINE CLONABLE FOBS</a></li>
+          </ul>
+        </li>
+        <li><a routerLink="../category/191" title="VATS KEYS">Vats Keys</a></li>
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/200">Sports Team Keys & Accessories</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/283-nfl-team-items" title="NFL Team Items">NFL Team Items</a></li>
+        <li><a routerLink="../category/347-mlb-team-items" title="MLB Team Items">MLB Team Items</a></li>
+        <li><a routerLink="../category/316-nba-team-items" title="NBA Team Items">NBA Team Items</a></li>
+        <li><a routerLink="../category/387-college-team-items" title="College Team Items">College Team Items</a></li>
+        <li><a routerLink="../category/379-nhl-team-items" title="NHL Team Items">NHL Team Items</a></li>
+        <li><a routerLink="../category/77-nascar-keys" title="Nascar Keys">Nascar Keys</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/201">3D Key Blanks</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/282-universal-gun-key" title="Universal Gun Key">Universal Gun Key</a></li>
+        <li><a routerLink="../category/244-trendy-keys" title="Trendy Keys">Trendy Keys</a></li>
+        <!--<li><a routerLink="../category/274-key-shape-keys" title="Key Shape Keys">Key Shape Keys</a></li>-->
+        <li><a routerLink="../category/198-real-superheros" title="Real Superhero KEYS &amp; LANYARDS">Real Superhero KEYS &amp; LANYARDS</a></li>
+        <li><a routerLink="../category/198-army-navy-marine-keys-and-lanyards" title="US MARINE KEYS &amp; LANYARDS">US MARINE KEYS &amp; LANYARDS</a></li>
+        <!--<li><a routerLink="../category/80-guitar-keys" title="Guitar Keys">Guitar Keys</a></li>-->
+        <!--<li><a routerLink="../category/116-sporty-keys" title="Sporty Keys">Sporty Keys</a></li>-->
+        <li><a routerLink="../category/112-butterfly-keys" title="Butterfly Keys">Butterfly Keys</a></li>
+        <li><a routerLink="../category/115-gun-drill-saw-keys" title="Gun, Drill, Saw Keys">Gun, Drill, Saw Keys</a></li>
+        <li><a routerLink="../category/119-royal-keys" title="Royal Keys">Royal Keys</a></li>
+        <!--<li><a routerLink="../category/528-wonder-keys" title="Wonder Keys">Wonder Keys</a></li>-->
+
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/202-cartoon-keys">Cartoon Keys</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/275-superman-batman-keys" title="SUPERMAN BATMAN KEYS">SUPERMAN BATMAN KEYS</a></li>
+        <li><a routerLink="../category/276-looney-tunes-sponge-bob-pink-panther-keys" title="LOONEY TUNES KEYS">LOONEY TUNES KEYS</a></li>
+        <li><a routerLink="../category/97-disney-keys" title="DISNEY KEY BLANKS">DISNEY KEY BLANKS</a></li>
+        <li><a routerLink="../category/239-paws-claws-keys" title="PAWS &amp; CLAWS KEYS">PAWS &amp; CLAWS KEYS</a></li>
+        <li><a routerLink="../category/194-star-wars-keys" title="STAR WARS KEYS">STAR WARS KEYS</a></li>
+        <li><a routerLink="../category/195-artisan-collection-keys" title="ARTISAN COLLECTION KEYS">ARTISAN COLLECTION KEYS</a></li>
+        <li><a routerLink="../category/121-hello-kitty-keys" title="HELLO KITTY KEYS">HELLO KITTY KEYS</a></li>
+        <li><a routerLink="../category/124-disney-cars-keys" title="DISNEY CARS KEYS">DISNEY CARS KEYS</a></li>
+        <li><a routerLink="../category/122-betty-boop-keys" title="BETTY BOOP KEYS">BETTY BOOP KEYS</a></li>
+        <li><a routerLink="../category/107-pirates-of-the-caribbean" title="PIRATES OF THE CARIBBEAN">PIRATES OF THE CARIBBEAN</a></li>
+        <li><a routerLink="../category/125-disney-key-chains" title="DISNEY KEY CHAINS">DISNEY Lanyards</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/203-celebrity-keys">Celebrity Keys</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/95-marilyn-monroe-keys" title="MARILYN MONROE KEYS">MARILYN MONROE KEYS</a></li>
+        <li><a routerLink="../category/81-i-love-lucy-keys" title="I LOVE LUCY KEYS">I LOVE LUCY KEYS</a></li>
+        <li><a routerLink="../category/90-the-three-stooges-keys" title="THE THREE STOOGES">THE THREE STOOGES</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/204-key-chains">Key Chains</a>
+            <span expandMenu class="plus_minus">+</span>
+        <ul class="dropdown-menu">
+        <li><a routerLink="../category/125-disney-key-chains" title="DISNEY KEY CHAINS">DISNEY KEY CHAINS</a></li>
+        <li><a routerLink="../category/134-betty-boop-key-chains" title="BETTY BOOP KEY CHAINS">BETTY BOOP KEY CHAINS</a></li>
+        <li><a routerLink="../category/133-hello-kitty-key-chains" title="HELLO KITTY KEY CHAINS">HELLO KITTY KEY CHAINS</a></li>
+        <li><a routerLink="../category/135-garfield-key-chains" title="GARFIELD KEY CHAINS">GARFIELD KEY CHAINS</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item">
+            <a class="nav-link" routerLink="../category/380">LOCK PINS</a>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/127">Key Accessories</a>
+            <span expandMenu class="plus_minus">+</span>
+            <ul class="dropdown-menu">
+            <li><a routerLink="../category/523-rhinestone-key-chains" title="RHINESTONE KEY CHAINS">RHINESTONE KEY CHAINS</a></li>
+            <li><a routerLink="../category/127-key-accessories" title="KEY ACCESSORIES">KEY ACCESSORIES</a></li>
+            <li><a routerLink="../search/FASHION" title="FASHION LANYARDS">FASHION LANYARDS</a></li>
+            <li><a routerLink="../category/514-custom-lanyards" title="CUSTOM LANYARDS">CUSTOM LANYARDS</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item">
+      <a class="nav-link" routerLink="../category/128-custom-keys">Custom keys</a>
+          </li>
+      <li class="nav-item">
+      <a class="nav-link" routerLink="../category/506-locksmith-supplies">LOCKSMITH SUPPLIES</a>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/129-promotional-keys">Promotional Keys</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/255-engraved-logo-keys" title="Engraved Logo Keys">ENGRAVED LOGO KEYS</a></li>
+        <li><a routerLink="../category/525-real-estate-keys" title="Real Estate Key Blanks">REAL ESTATE KEYS</a></li>
+        <li><a routerLink="../category/524-church-keys" title="Church Key Blanks">CHURCH KEYS</a></li>
+        <li><a routerLink="../category/254-painted-promo-keys" title="Painted Keys">PAINTED PROMO KEYS</a></li>
+        <li><a routerLink="../category/253-winning-key-promotion" title="Winning Keys">WINNING KEY PROMOTION</a></li>
+        <li><a routerLink="../category/514-custom-lanyards" title="CUSTOM LANYARDS">CUSTOM LANYARDS</a></li>
+
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="..#">Motorcycle KEYS</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a title="MOTORCYCLE KEYS" routerLink="../category/141-motorcycle-keys">MOTORCYCLE KEYS</a></li>
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/499-key-machines">Key Machines</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/499-key-machines" title="KEY MACHINES">KEY MACHINES</a></li>
+        <li><a routerLink="../category/250-machine-parts" title="Machine Parts">Machine Parts</a></li>
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="..#">RACKS</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../category/117-empty-racks" title="DISPLAY DEALS">EMPTY RACKS</a></li>
+        <li><a routerLink="../category/251-display-deals" title="DISPLAY DEALS">DISPLAY DEALS</a></li> 
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="../category/208-videos">Videos</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a href="https://www.youtube.com/watch?v=jrQerrvk1tw" target="How to Cut Keys Part1">How to Cut Keys Part1</a></li>
+        <li><a href="https://www.youtube.com/watch?v=Qh_CbP2Y2EY" target="How to Cut Keys Part2">How to Cut Keys Part2</a></li>
+        <li><a href="https://www.youtube.com/watch?v=nWn1YFyIQSY" target="Cut KW11 Key from KW1">Cut KW11 Key from KW1</a></li>
+        <li><a href="https://www.youtube.com/watch?v=Bp5cfy9K5Lw" target="How to Select a Key">Selecting Keys</a></li>
+        <li><a href="https://www.youtube.com/watch?v=mMJQ1bhMneY" target="How to Maintain Key Machine">Maintain Key Machine</a></li>
+        <li><a href="https://www.youtube.com/watch?v=ap3pq9IJgqo" target="Ilco Engrave It Machine">Ilco Engrave IT Machine</a></li>
+        <li><a href="https://www.youtube.com/watch?v=pCwpjnleeKw" target="Ilco Engrave It Pro">Ilco Engrave It Pro</a></li>
+        <li><a href="https://www.youtube.com/watch?v=vevc9JVaMIw" target="Ilco TKO Transponder Machine">Ilco TKO Transponder</a></li>
+        <li><a href="https://www.youtube.com/watch?v=oxXQuS8eCsI" target="Ilco RW4 Plus">Ilco RW4 Plus</a></li>
+        <li><a href="https://www.youtube.com/watch?v=VY0SUZf6jps" target="Silica Matrix Key Machine">Silica Matrix Key Machine</a></li>
+        <li><a href="https://www.youtube.com/watch?v=SWZjp8pN-F8" target="Ilco Tri Code HS Machine">Ilco Tri Code HS Machine</a></li>
+        <li><a href="https://www.youtube.com/watch?v=PvcoDKFmk7Q" target="Ilco EZ Code Machine">Ilco EZ Code Machine</a></li>
+        <li><a href="https://www.youtube.com/watch?v=oFtjrJbVeO4" target="Car Remote Shells">Car Remote Shells</a></li>
+        <li><a href="https://www.youtube.com/watch?v=BtIL_fa4RGY" target="Car Remote Shells">JMA TRS-5000 EVO Transponder</a></li>
+            </ul>
+          </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="..#">Order Forms</a>
+            <span expandMenu class="plus_minus">+</span>
+<ul class="dropdown-menu">
+        <li><a routerLink="../orderforms/engraved_keys.pdf" title="Engraving Keys Order Form">Engraving Keys Order Form</a></li>
+            </ul>
+          </li>
+        
+       <li class="nav-item">
+           <a class="nav-link" routerLink="../category/551-references">REFERENCES</a>
+       </li>  
+      <li class="nav-item">
+      <a class="nav-link close_menu rounded ms-2" style="background:#990000;;" routerLink="../category/83-close-outs">CLOSE OUTS</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link month_menu rounded ms-2" style="background:#22b00d;" routerLink="../category/515-monthly-specials">MONTHLY SPECIALS</a>
+      </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="go_green_main col-md-12 pt-3 pb-3 text-center fw-bold position-relative">
+        <div class="container">
+            <img src="/assets/images/gogreenlogo.png" alt="gogreenlogo">
+                Online Orders - Same Day Shipping (Before 3:00PM PST)
+            <img src="/assets/images/gogreenlogo.png" alt="gogreenlogo"> 
+        </div>
+    </div>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<div class="col-md-12 w-100">
+<div class="container">
+    <!--<ng-container *ngIf="loading">
+       <circle-spinner></circle-spinner>
+    </ng-container>-->
+    <alert></alert>
+</div>
+</div>
+<router-outlet></router-outlet>
+
+<footer class="col-md-12 footer my_light_bg pt-3 pb-3 mt-4">
+<div class="container">
+    <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-lg-3 footer_left">
+            Key Craze, Inc. 8372 Carbide Ct Sacramento CA 95828<br>Copyright © 2007-2024 Key Blanks. All Rights Reserved.
+        </div>
+        <div class="col-lg-6 free_truck text-center">
+            <div class="free_truck_img d-inline-block align-middle"><img src="/assets/images/truck_free.png" class="shipping_truck px-3" alt="Free Shipping">
+            <strong class="free_truck_text d-inline-block align-middle">FREE Shipping on Orders Over $100 in USA</strong></div>
+          </div>
+          <div class="col-lg-3 navbar-expand-lg">
+            <ul class="navbar-nav flex-wrap justify-content-center">
+              <li><a class="nav-link pt-1 pb-0" href="sitemap.xml">Sitemap</a></li>
+              <li><a class="nav-link pt-1 pb-0" routerLink="../term-of-use-policy">Terms of Use</a></li>
+              <li><a class="nav-link pt-1 pb-0" routerLink="../privacy-policy">Privacy Policy</a></li><br>
+              <li><a class="nav-link pt-1 pb-0" href="https://www.youtube.com/user/KEYCRAZE916">Key Blanks Videos</a></li>
+              <li><a class="nav-link pt-1 pb-0" routerLink="../about-us">About Us</a></li>
+              <li><a class="nav-link pt-1 pb-0" routerLink="../contact-us">Contact Us</a></li>
+            </ul>
+          </div>
+    </div>
+</div>
+</footer>     
+<div class="my_dark_bg social pt-3 pb-3">
+<div class="container">
+        <div class="row">
+          <div class="col-lg-12 navbar-expand-lg d-flex align-items-center justify-content-end">
+            <strong class="px-2">Join us on:</strong>
+            <a class="btn botton m-1" style="background-color:#3b5998;" href="https://www.facebook.com/KeyCraze/" role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path></svg>
+            </a>
+            <a class="btn botton m-1" style="background-color: rgb(85, 172, 238);" href="https://www.twitter.com/keycraze" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+            </a>
+            <a class="btn botton m-1" style="background-color: rgb(237, 48, 47);" href="https://www.keycraze.com/videos-main.html" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16"> <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/></svg>
+            </a>
+          </div>
+        </div>
+</div>
+</div>

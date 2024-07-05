@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="143" height="44" viewBox="0 0 143 44">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2878d9"/>
+      <stop offset="1" stop-color="#1352a0"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-31 -54)">
+    <rect id="Rounded_Rectangle_2" data-name="Rounded Rectangle 2" width="143" height="44" rx="21.5" transform="translate(31 54)" fill="url(#linear-gradient)"/>
+    <text id="Submit" transform="translate(55 67.6)" fill="#fff" font-size="20" font-family="AcuminPro-Bold, Acumin Pro" font-weight="700"><tspan x="0" y="15">Submit</tspan></text>
+    <image id="Shape_1" data-name="Shape 1" width="25" height="15" transform="translate(128 70)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAPCAYAAAARZmTlAAAABHNCSVQICAgIfAhkiAAAAPxJREFUOE9jPP1gNgMJYAtQbQcQHyFBDwMjiZZ8ABrOD8TbgLgGiM8TYxm5loDM/g/Eq4G4Dohv4rOMEktg5v4BMhYAcTMQP8JmGciSVcR4GaomAEiz4lD/Eyg+A4hbgfg1shqQJSBvUxN8ARrWD8R9QAyKQ3DEU9sSmIPfAhldQDyZcd3FElpZArLsFyj4GCcd9qGFJf+Ahi8D4gYgvksLSzYCDQbloSuwcANZEkpCrC8AquXCoX4vULwaiE+iy4MsIcEOcGoB5XhkcArIqQJikCVYASWWgIIDFCybgBhvvJJjCShpgiJ0KRCDIpggINWSeKCJy4EYlDSJBgCJoE7boHrbogAAAABJRU5ErkJggg=="/>
+  </g>
+</svg>

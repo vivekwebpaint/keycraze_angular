@@ -1,0 +1,75 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<section class="checkout_payment col-md-12">
+	<div class="container">
+	<div class="row">	    
+			<div class="col-md-12 pt-3"><h1>Step 1 of 3 - Delivery Information</h1></div>
+			<div class="col-md-5 profile_info">
+				<h3 class="mt-3 mb-3">Shipping Information:</h3>
+				<div class="row">
+					<div class="col-md-6">
+						<p class="m-0">{{addressData.entry_company}}</p>
+						<p class="m-0">{{addressData.entry_firstname}} {{addressData.entry_lastname}}</p>
+						<p class="m-0">{{addressData.entry_street_address}}</p>
+						<p class="m-0">{{addressData.entry_city}}, {{addressData.zone_name}} {{addressData.entry_postcode}}</p>
+						<p class="m-0">{{addressData.countries_name}}</p>
+					</div>
+					<div class="col-md-6">
+						<a href="/checkout-shipping-address"><img src="/assets/images/button_change_address_n.gif" alt="Change Address" title="Change Address" width="177" height="67"></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7 profile_btn">
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<a href="/account-password"><img src="/assets/images/passwordicon.jpg" alt="" title="" width="206" height="70"></a>
+					</div>
+					<div class="col-md-6 text-center btn_myaccount">
+						<a href="/my-account"><img src="/assets/images/myaccountincon.jpg" alt="" title="" width="213" height="70"></a>
+					</div>
+					<div class="col-md-12 text-center fw-bold mt-5">
+						Your order will be shipped to the address at the left or you may change the shipping address by clicking the <em>Change Your Address</em> button.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12" *ngIf="available_shipping_methods">
+				<h3 class="mt-3 mb-1">Shipping Method:</h3>
+				<div class="col-md-12 continue_btn mt-5 mb-4">
+					<div class="float-end">
+						<button type="submit" class="botton btn-green botton-big-size pb-2 px-3">Continue Checkout 
+						<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+					</div>
+			    </div>
+				<div class="fw-bold">
+					Your order will be shipped to the address at the left or you may change the shipping address by clicking the <em>Change Your Address</em> button.
+				</div>
+				<div class="is-invalid product-shadow" *ngFor="let sm of available_shipping_methods.shipping_data; let index = index" (click)="checkRadio(index)">
+					<h5 class="border-bottom my-3 py-2" *ngIf="sm.heading">{{sm.heading}}</h5>
+					<div id="radio_{{index}}" class="col-md-12 {{sm.available_methods.class}}" [ngClass]="{ 'shadow-sm' : sm.method == 'freeoptions' }">
+					    <div class="form-check px-3 py-2 fw-bold">
+							<label for="{{sm.method}}" class="form-check-label fw-bold w-100">
+								<div class="radio_price text-primary">${{sm.available_methods.price | number : '.2-2'}}</div>
+							<input id="{{sm.method}}" value="{{sm.available_methods.value}}|{{sm.available_methods.price}}" formControlName="shipping_method" class="form-check-input m-0 mt-1 me-2" type="radio" [ngClass]="{ 'is-invalid': submitted && f.shipping_method.errors }"> {{sm.available_methods.label}}
+							</label>
+						</div>
+					</div>
+				</div>
+				
+	            <div *ngIf="submitted && f.shipping_method.errors" class="invalid-feedback">
+			        <div *ngIf="f.shipping_method.errors['required']">Shipping Method is required:</div>
+			    </div>
+				<h4 class="border-bottom text-primary pt-3 pb-2">Special Instructions or Comments About Your Order</h4>
+				<div class="col-sm-12 w-100 mt-3">
+					<textarea formControlName="special_instructions" class="form-control height-textarea" rows="3"> {{customerAccount}} </textarea>
+				</div>	
+			</div>		
+			<div class="col-md-12 continue_btn mt-5 mb-4">
+				<div class="float-start"><strong>Continue to Step 3</strong> <br>- to confirm your order.</div>
+				<div class="float-end">
+					<button type="submit" class="botton btn-green botton-big-size pb-2 px-3">Continue Checkout 
+					<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+				</div>
+		    </div>
+	</div>
+	</div>
+	</section>
+</form>

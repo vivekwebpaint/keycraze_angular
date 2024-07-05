@@ -1,0 +1,466 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+<section class="checkout_payment col-md-12 pt-3">
+	<div class="container">
+	<div class="row" *ngIf="shipping_method">	    
+			<div class="col-md-12"><h1>Step 2 of 3 - Payment Information</h1>
+				<div class="col-sm-2" *ngIf="amc">
+					<select class="form-control store" (change)="onChange($event)" #store_value>
+						<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+						 <option
+			                *ngFor="let v of AccountNumber"
+			                [attr.data-store]="amc[v]"
+			                data-value="{{v}}"
+			                value="{{v}}"
+			                class="dropdown-item">{{v}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-6 checkout_delivery">
+				<h3 class="mt-3 mb-3">Delivery/Shipping Information</h3>
+				<div class="row">
+					<div class="col-sm-6">
+						<p class="m-0">{{addressData.entry_company}}</p>
+						<p class="m-0">{{addressData.entry_firstname}} {{addressData.entry_lastname}}</p>
+						<p class="m-0">{{addressData.entry_street_address}}</p>
+						<p class="m-0">{{addressData.entry_city}}, {{addressData.zone_name}} {{addressData.entry_postcode}}</p>
+						<p class="m-0">{{addressData.countries_name}}</p>
+					</div>
+					<div class="col-sm-6">
+						<h4>Shipping Method: <a class="botton btn-blue" href="/checkout_shipping">Edit</a></h4>
+						<p>{{shipping_method.shipping_method['label']}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 continue_btn mt-5 mb-4">
+				<div class="float-end">
+					<button type="submit" class="botton btn-green botton-big-size pb-2 px-3">Continue Checkout 
+					<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+				</div>
+		    </div>
+			<div class="col-md-12 your_total mt-3 mb-2">
+				<h4 class="my_dark_bg p-2">Your Total</h4>			
+				<div class="sub_total float-end w-100 d-flex justify-content-end">
+					<p class="m-0">Sub-Total:</p>
+					<p class="m-0 ms-3">${{shipping_method.total  | number : '.2-2' }}</p>
+				</div>
+				<div class="sub_total float-end w-100 d-flex justify-content-end">
+					<p class="m-0">{{shipping_method.shipping_method['label']}}:</p>
+					<p class="m-0 ms-3">${{shipping_method.shipping_method['price']  | number : '.2-2' }}</p>
+				</div>
+				<div class="sub_total float-end w-100 d-flex justify-content-end">
+					<p class="m-0">Total:</p>
+					<p class="m-0 ms-3">${{ shipping_method.total + shipping_method.shipping_method['price']  | number : '.2-2' }}</p>
+				</div>
+			</div>
+			
+
+			<form [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="col-md-12 payment_options">
+				<h4>Please Select ONLY 1 of {{TotalPaymentMethods}} Payment Options For This Order</h4>	
+				<div class="row d-flex">
+					<div class="col-sm-6 order-2" *ngIf="AccountNumber">
+						<h3 class="mt-3 mb-3">Delivery/Shipping Information</h3>
+						<p class="m-0">{{addressData.entry_company}}</p>
+						<p class="m-0">{{addressData.entry_firstname}} {{addressData.entry_lastname}}</p>
+						<p class="m-0">{{addressData.entry_street_address}}</p>
+						<p class="m-0">{{addressData.entry_city}}, {{addressData.zone_name}} {{addressData.entry_postcode}}</p>
+						<p class="m-0">{{addressData.countries_name}}</p>
+					</div>
+					<div class="is-invalid"></div>
+					<div *ngIf="submitted && f.payment_method.errors" class="invalid-feedback">
+				        <div *ngIf="f.payment_method.errors['required']">Payment Method is required:</div>
+				    </div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkTrueValue()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)" >
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault1">
+								1)
+							</label>	
+							<input value="True Value" class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault1" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">				
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/TrueValueLogo.gif" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">True Value Store #</label>
+							<div class="col-sm-8" *ngIf="amc; else elseBlock">
+							  <select class="form-control store" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+							  		<input [readonly]="AccountNumber ? true : false" type="text" value="{{AccountNumber}}" class="form-control store">
+							  	</div>
+						  	</ng-template>
+							
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control po_order">
+							</div>
+						</div>
+					</div>
+					</div>				
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkAceHardware()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault2">
+								2)
+							</label>
+							<input class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" value="Ace Hardware" id="flexRadioDefault2" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/AceLogo.gif" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Ace Hardware Store #</label>
+							
+							<div class="col-sm-8" *ngIf="amc; else elseBlock">
+								<select class="form-control store" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+						  			<input [readonly]="AccountNumber ? true : false" type="text" value="{{AccountNumber}}" class="form-control store">
+						  		</div>
+						  	</ng-template>
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control po_order">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkDoItBest()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault3">
+								3)
+							</label>
+							<input value="Do It Best" class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault3" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/DoItBest.gif" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Do It Best Store #</label>
+							<div class="col-sm-8" *ngIf="amc; else elseBlock">
+							  <select class="form-control store" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+							  		<input [readonly]="AccountNumber ? true : false" type="text" value="{{AccountNumber}}" class="form-control store">
+							  	</div>
+						  	</ng-template>
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control po_order">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkOrgillStore()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault4">
+								4)
+							</label>
+							<input value="Orgill Store" class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault4" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/orgill_logo.jpg" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Orgill Store #</label>
+							<div class="col-sm-8" *ngIf="amc; else elseBlock">
+							   <select class="form-control store" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+							  		<input [readonly]="AccountNumber ? true : false" type="text" value="{{AccountNumber}}" class="form-control store">
+							  	</div>
+						  	</ng-template>
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control po_order">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkBostwickBraun()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault5">
+								5)
+							</label>
+							<input value="Bostwick-Braun" class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault5" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/Bostwick-Braun.jpg" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Bostwick-Braun #</label>
+							<div class="col-sm-8" *ngIf="amc; else elseBlock" >
+							  <select class="form-control store" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+						  			<input [readonly]="AccountNumber ? true : false" value="{{AccountNumber}}" type="text" class="form-control store">
+						  		</div>
+						  	</ng-template>
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control po_order">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkHouseHasson()">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault6">
+								6)
+							</label>
+							<input value="House Hasson" class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault6" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="float-start w-auto ps-3 pay_logo">
+							<img src="/assets/images/hh.jpg" class="float-start" alt="">
+						</div>
+						<div class="mb-2  row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">House Hasson Store #</label>
+							<div class="col-sm-8" *ngIf="amc; else elseBlock" >
+							  <select class="form-control store" *ngIf="amc; else elseBlock" (change)="onChange($event)" #store_value>
+									<option value="" *ngIf="AccountNumber.length > 1">Select Store</option>
+									 <option
+						                *ngFor="let v of AccountNumber"
+						                [attr.data-store]="amc[v]"
+						                data-value="{{v}}"
+						                value="{{v}}"
+						                class="dropdown-item">{{v}}</option>
+								</select>
+							</div>
+							<ng-template #elseBlock>
+								<div class="col-sm-8">
+						  			<input [readonly]="AccountNumber ? true : false" value="{{AccountNumber}}" type="text" class="form-control store">
+						  		</div>
+						  	</ng-template>
+						</div>
+						<div class="row col-sm-7 float-end">
+							<label class="col-sm-4 col-form-label px-0 text-right">Purchase Order #:</label>
+							<div class="col-sm-8">
+							  <input type="text" class="form-control  po_order">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkCcOnFile() && customerAccount.cc_number">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault7">
+								7)
+							</label>
+							<input value="Credit Card On File" class="form-check-input ms-2" type="radio" formControlName="payment_method" id="flexRadioDefault7" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<div class="ps-3 mb-0 float-start w-auto">
+							<img src="/assets/images/credit-card-on-file.jpg" class="img-fluid float-start pe-2" alt="...">
+						</div>
+						<div class="mb-0 float-start w-50">
+							<strong class="text-success float-start w-100">CREDIT CARD ON FILE</strong>
+							<strong class="text-danger float-start w-100">YOUR CARD WILL NOT BE CHARGED UNTIL READY FOR SHIPPING</strong>
+							<strong class="float-start w-100" *ngIf="customerAccount.cc_number">(Card ending with {{customerAccount.cc_number}}) (Expires on {{customerAccount.cc_expires}})</strong>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="customerAccount.mo == '1'">
+					<div class="shadow-sm float-start p-3 w-100 " (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault8">
+								8)
+							</label>
+							<input value="Check/Money Order" class="form-check-input ms-2" type="radio"formControlName="payment_method" id="flexRadioDefault8" [ngClass]="{ 'is-invalid': submitted && f.payment_method.errors }" />
+						</div>
+						<div class="figure ps-3 mb-0">
+							<img src="/assets/images/checkwrite.gif" class="img-fluid float-start pe-2" alt="...">
+							<div class="figure-caption">
+								<strong class="text-success">Check/Money Order Check/Money Order (FOR CUSTOMERS ON NET-30 BILLING ONLY)</strong>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-6 payment_main mt-4 order-1" *ngIf="checkCcOnFile()">
+					<div class="shadow-sm float-start p-3 w-100 float-start p-3 mobile_input mobile_input_credit" (click)="radio_clicked($event)">
+						<div class="form-check float-start w-auto p-0">
+							<label class="form-check-label fw-bold float-start" for="flexRadioDefault9">
+								9)
+							</label>
+							<input class="form-check-input ms-2" type="radio" name="payment_method" formControlName="payment_method" id="flexRadioDefault9" value="New Credit Card"[ngClass]="{'is-invalid': submitted && f.payment_method.errors }">
+						</div>
+						<figure class="figure ps-3 mb-0">
+							<strong>NEW CREDIT CARD </strong>
+							<img src="/assets/images/cards_image.jpg" class="figure-img img-fluid pe-2 ps-2" alt="">
+							<strong class="text-danger"> YOUR CARD WILL NOT BE CHARGED UNTIL READY FOR SHIPPING</strong>
+						</figure>
+						<div class="col-sm-10 pt-2  d-flex flex-wrap align-items-center">
+							<label class="col-sm-4 col-form-label fw-bold">Name on Card:</label>
+							<div class="col-sm-8">
+							  <input autocomplete="none" formControlName="card_name" type="text" class="form-control" (change)="unSecureCard()">
+							</div>
+						</div>
+						<div class="col-sm-10 pt-2  d-flex flex-wrap align-items-center">
+							<label class="col-sm-4 col-form-label fw-bold">Card Number:</label>
+							<div class="col-sm-8">
+							  <input [type]="show ? 'text' : 'password'" (click)="unSecureCard()" formControlName="card_number" class="form-control">
+							</div>
+						</div>
+						<div class="col-sm-10 pt-2  d-flex flex-wrap align-items-center">
+							<label class="col-sm-4 col-form-label fw-bold">Expiration Date:</label>
+							<div class="col-sm-8">
+								<select formControlName="card_exp" class="form-control form-select card_exp blue-border w-auto float-start select_padding_right" (change)="secureCard()">
+								  <option value="01">01</option>
+								  <option value="02">02</option>
+								  <option value="03">03</option>
+								  <option value="04">04</option>
+								  <option value="05">05</option>
+								  <option value="06">06</option>
+								  <option value="07">07</option>
+								  <option value="08">08</option>
+								  <option value="09">09</option>
+								  <option value="10">10</option>
+								  <option value="11">11</option>
+								  <option value="12">12</option>
+								</select>
+								<select formControlName="card_exp_year" class="form-control form-select blue-border w-auto float-start ms-2 select_padding_right">
+								  <option value="23">2023</option>
+								  <option value="24">2024</option>
+								  <option value="25">2025</option>
+								  <option value="26">2026</option>
+								  <option value="27">2027</option>
+								  <option value="28">2028</option>
+								  <option value="29">2029</option>
+								  <option value="30">2030</option>
+								  <option value="31">2031</option>
+								  <option value="32">2032</option>
+								  <option value="33">2033</option> 
+								  <option value="34">2034</option>
+								  <option value="35">2035</option> 
+								  <option value="36">2036</option>
+								  <option value="37">2037</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-10 pt-2  d-flex flex-wrap align-items-center float-start claer-both">
+							<label class="col-sm-4 col-form-label fw-bold">CVV Number ( <a href="#">More Info</a> )</label>
+							<div class="col-sm-8">
+							  <input maxlength="4" formControlName="card_cvv" type="text" class="form-control">
+							</div>
+						</div>
+						<div class="col-sm-12 pt-2 float-start claer-both">
+							<label class="col-sm-12 col-form-label fw-bold">Billing Address on New Credit Card:</label>
+							<div class="form-check">
+								<input (click)="showBillingTexarea()" formControlName="same_as_shipping" class="form-check-input custom_check" type="checkbox" value="1">
+								<label class="form-check-label fw-bold">Same as Shipping Address </label>
+							</div>
+							<div class="col-sm-12 p-0 w-100">
+							  <textarea [class]="showBilling ? '' : 'd-none'" formControlName="billingAddress" class="form-control height-textarea" rows="3"></textarea>
+							</div>
+						</div>				
+					</div>
+					</div>
+					<div class="clearfix"></div>	
+						<div class="col-sm-6 payment_main hear_us mt-4 order-3">
+							<div class="shadow-sm shadow-big-height float-start p-3 w-100 ">
+							<h5 class="mb-3">How did you hear about us?</h5>
+							<select formControlName="hear_about_us" class="form-control form-select blue-border w-auto float-start">
+								<option value="">==SELECT==</option>
+								<option value="Catalog in Mail">Catalog in Mail</option>
+								<option value="Yahoo">Yahoo</option>
+								<option value="Google">Google</option>
+								<option value="Hardware Retail Magazine">Hardware Retail Magazine</option>
+								<option value="ALOA">ALOA</option>
+								<option value="Clar Star">Clear Star</option>
+								<option value="Ace Hardware">Ace Hardware</option>
+								<option value="True Value">True Value</option>
+								<option value="Do It Best">Do It Best</option>
+								<option value="Orgill">Orgill</option>
+								<option value="Bostwick-Braun">Bostwick-Braun</option>
+								<option value="Pop A Lock">Pop A Lock</option>
+								<option value="Email">E-mail</option>
+								<option value="Flyer in the Mail">Flyer in the Mail</option>
+								<option value="Phone Call">Phone Call</option>
+								<option value="Friend">Friend</option>
+							</select>
+							<label class="w-auto float-start ps-3 pe-3 pt-2">Other:</label>
+							<input formControlName="hear_about_us_other" type="text" class="form-control w-auto mobile_margin">
+						</div>
+						</div>		
+					<div class="col-sm-6 payment_main special_instructions mt-4 order-4">
+					<div class="shadow-sm shadow-big-height float-start p-3 w-100">
+						<h5>Special Instructions or Order Comments</h5>					
+						<div class="row col-sm-12 ps-3 pt-2">
+							  <textarea formControlName="special_instructions" class="form-control height-textarea" rows="3">{{customerAccount.extra_notes}}</textarea>
+						</div>				
+					</div>
+					</div>						
+				</div>
+				</div>
+			</form>
+			
+			
+			<div class="col-md-12 continue_btn mt-5 mb-4">
+				<div class="float-start"><strong>Continue to Step 3</strong> - to confirm your order.</div>
+				<div class="float-end">
+					<button type="submit" class="botton btn-green botton-big-size pb-2 px-3">Continue Checkout 
+					<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+				</div>
+		    </div>
+	</div>
+	</div>
+	</section>
+</form>

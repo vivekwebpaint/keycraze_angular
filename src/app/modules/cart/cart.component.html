@@ -1,0 +1,89 @@
+﻿<section class="my_cart col-md-12 pt-3">
+<div class="container">
+<div class="row" *ngIf="cartDetails.length != 0">	    
+	<div class="col-md-12">
+			<h1 mb-4>Your Shopping Cart Contents</h1>
+			<p class="m-0">NOTICE: For your convenience, your current shopping cart has been combined with your shopping cart from your last visit. Please review your shopping cart before checking out.</p>
+			<p class="m-0 mt-1">You may proceed with your purchase by clicking the Checkout button below. Shipping and Taxes and Discounts will be handled on subsequent pages.</p>
+	</div>
+	<form class="cart_from_mobile" name="cart_quantity" action="#" method="post">
+	   <div class="mt-1 fw-bold mb-2 col-lg-12 w-100">Total Items: {{cartDetails.length}} &nbsp;&nbsp; Weight: {{weight}}lbs  &nbsp;&nbsp; Amount: ${{ Carttotal | number : '.2-2' }}</div>
+	   <!--<div class="w-100 text-right"><a href="#">Select ALL</a> | <a href="#">Select None</a></div>-->
+	   <div class="col-md-12 cart_mobile border shadow-sm p-2 my-2 d-block" *ngFor="let item of cartDetails">
+	   <div class="row">
+	    <div class="col-sm-3 cart_qty">
+			<label class="col-auto d-inline-block align-middle pe-2">Quantity</label>
+			<div class="col-auto d-inline-block align-middle px-2">
+				<input value="{{ item.qty }}" type="text" class="form-control cart_input" #cart_qty>
+			</div>
+			<div class="col-auto d-inline-block align-middle ps-2">
+				<a (click)="_increamentQTY(item.id, cart_qty.value, item.rowid)" class="float-start d-inline-block align-middle botton btn-dark-blue rounded-pill pb-2 px-3 ms-2 update_btn">UPDATE</a>
+			</div>
+	    </div>
+		<div class="col-sm-2 cart_item">
+			<div class="d-inline-block align-middle pe-2">
+				<a href="/product/{{item.id}}">
+					<div class="cart_product_image"><img class="me-2" src="{{images_Url}}/images/{{item.image}}" alt="" title="" width="17" height="40"></div>
+					{{ item.name }}
+				<p class="text-danger" *ngIf="convertToNumber(cart_qty.value) > convertToNumber(item.avalable_qty)">(MAY BE OUT OF STOCK)</p>
+				</a>	
+			</div>
+	    </div>
+		<div class="col-sm-2 d-flex align-items-center cart_model">
+			<div class="d-inline-block align-middle">
+				{{ item.model }}
+			</div>
+	    </div>
+		<div class="col-sm-2 d-flex align-items-center price_cart">
+			<div class="unit_price d-inline-block align-middle">
+				Unit Price: ${{ item.price  | number : '.2-2'}}
+			</div>
+	    </div>
+		<div class="col-sm-3 d-flex justify-content-end cart_total">
+			<div class="d-inline-block mob_widthfull">
+				<div class="d-inline-block align-middle total_price">Total Price: ${{ item.subtotal | number : '.2-2' }}</div>
+				<div class="d-inline-block align-middle delete_right">
+				<a class="d-inline-block align-middle botton btn-red rounded-pill pb-2 px-3 ms-2 btn_delete" (click)="_decreamentQTY(item.id,item.rowid,item.qty)">
+					DELETE
+				</a>
+				<div class="d-inline-block align-middle input_delete"><input type="checkbox" value="" class="form-check-input ms-1"></div>
+				</div>
+			</div>
+	    </div>
+	   </div>
+	   </div>
+	  
+	   <div class="col-sm-12 clearfix d-block mt-4 cart_sub_total">
+			<div class="my_dark_bg p-2 rounded mb-3 fw-bold text-right">Sub-Total: ${{ Carttotal | number : '.2-2' }}</div>
+	   </div>
+	   <div class="col-sm-12 clearfix d-block mt-4 cart_btn_all">
+			<div class="float-start">
+				<a href="/" class="d-inline-block align-middle botton btn-ferozi rounded-pill botton-big-size pb-2 px-4 btn_mob_margin">
+					SHOP MORE
+				</a>
+				<!--<a href="#" class="d-inline-block align-middle botton btn-dark-blue rounded-pill botton-big-size pb-2 px-4 ms-2 btn_mob_margin">
+					UPDATE SELECTED
+				</a>-->
+				<a role="button" class="d-inline-block align-middle botton btn-red rounded-pill botton-big-size pb-2 px-4 ms-2 btn_mob_margin" (click)="_emptyCart()">EMPTY CART</a>
+			</div>
+			<div class="float-end">
+				<a class="d-inline-block align-middle botton btn-green botton-big-size pb-2 px-3" href="/checkout_shipping">
+					Go To Checkout <i class="fa fa-arrow-right" aria-hidden="true"></i>
+				</a> 
+			</div>
+	   </div>
+	    <div class="col-sm-12 clearfix d-block mt-2 cart_express" *ngIf="showExpressCheckout">
+			<div class="float-end">
+				<a role="button" (click)="expressCheckout()">
+					<div class="cart_express_inner d-flex flex-wrap align-items-center">
+						<p class="m-0 px-2 text-center ">Last information Used</p>
+						<h4 class="m-0 px-2 text-center text-uppercase text-center">Express Checkout</h4>
+					</div>
+					</a>	
+			</div>
+	   </div>
+	</form>
+</div>
+<h2 id="cartEmptyText" *ngIf="cartDetails.length == 0">Your Shopping Cart is empty.</h2>
+</div>
+</section>

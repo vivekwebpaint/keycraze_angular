@@ -1,0 +1,139 @@
+<section class="my_account_edit col-md-12 mt-3">
+<div class="container">
+<div class="row">
+    <h3 class="text-success text-center py-3 fst-italic">Change the Shipping Address</h3>   
+	<div class="col-md-6" *ngIf="primaryAddressData">
+		<h4 class="border-bottom pb-2">Current Shipping Address</h4>
+		<p class="m-0">{{primaryAddressData.entry_company}}</p>
+		<p class="m-0">{{primaryAddressData.customers_firstname}} {{primaryAddressData.customers_lastname}}</p>
+		<p class="m-0">{{primaryAddressData.entry_street_address}}</p>
+		<p class="m-0">{{primaryAddressData.entry_city}}, {{primaryAddressData.zone_name}} {{primaryAddressData.entry_postcode}}</p>
+		<p class="m-0">{{primaryAddressData.countries_name}}</p>
+		<p class="mt-3">Please use the following form to create a new shipping address for use with this order.</p>
+	</div>	
+	<div class="col-md-6">
+		<form class="mobile_input" [formGroup]="form" (ngSubmit)="onSubmit()">	 
+		<h4 class="border-bottom pb-2">Change the Shipping Address for This Order</h4>
+		<div class="text-danger my-3 mb-4">* Required information</div>
+		
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">First Name:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_firstname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_firstname.errors }" />
+                <div *ngIf="submitted && f.entry_firstname.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_firstname.errors['required']">First Name is required</div>
+                </div>
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Last Name:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_lastname.errors }" />
+                <div *ngIf="submitted && f.entry_lastname.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_lastname.errors['required']">Last Name is required</div>
+                </div>
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Company Name:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_company.errors }" />
+                <div *ngIf="submitted && f.entry_company.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_company.errors['required']">Company is required</div>
+                </div>
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Street Address:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_street_address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_street_address.errors }" />
+                <div *ngIf="submitted && f.entry_street_address.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_street_address.errors['required']">Street Address is required</div>
+                </div>
+		   </div>
+		</div>
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Address Line 2:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_suburb" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_suburb.errors }" />
+                <div *ngIf="submitted && f.entry_suburb.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_suburb.errors['required']">Address Line 2 is required</div>
+                </div>
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">City:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_city.errors }" />
+                <div *ngIf="submitted && f.entry_city.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_city.errors['required']">City is required</div>
+                </div>
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">State/Province:</label>		
+		   <div class="col-sm-6">
+			  <select class="form-control form-select" formControlName="entry_state" [(ngModel)]="entry_country_id" [ngClass]="{ 'is-invalid': submitted && f.entry_state.errors }">
+				 <option value="" selected="selected">Please select ...</option>
+				 <option [value]="i.zone_id" *ngFor="let i of stateData">{{i.zone_name}}</option>
+				 
+			  </select>
+			  <div *ngIf="submitted && f.entry_state.errors" class="invalid-feedback">
+                <div *ngIf="f.entry_state.errors['required']">State is required</div>
+            </div>
+		   </div>
+		</div>		
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Post/Zip Code:</label>		
+		   <div class="col-sm-6">
+			  <input type="text" formControlName="entry_postcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.entry_postcode.errors }" />
+                <div *ngIf="submitted && f.entry_postcode.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_postcode.errors['required']">Postcode is required</div>
+                </div>
+		   </div>
+		</div>	
+		<div class="mb-3 mt-2 row">
+		   <label class="col-sm-2 col-form-label fw-bold">Country:</label>		
+		   <div class="col-sm-6">
+			  <select rel="dropdown" class="form-control form-select" (ngModelChange)="onCountryChange($event)" formControlName="entry_country_id" [ngClass]="{ 'is-invalid': submitted && f.entry_country_id.errors }">
+				 <option value="">Please Choose Your Country</option>
+				 <option value="223" selected="selected">United States</option> 
+				 <option value="13">Australia</option>
+				 <option value="38">Canada</option>
+				 <option value="73">France</option>
+				 <option value="81">Germany</option>
+				 <option value="88">Guam</option>
+				 <option value="138">Mexico</option>
+				 <option value="153">New Zealand</option>
+				 <option value="172">Puerto Rico</option>
+				 <option value="222">United Kingdom</option>
+			  </select>
+			  <div *ngIf="submitted && f.entry_country_id.errors" class="invalid-feedback">
+                    <div *ngIf="f.entry_country_id.errors['required']">Country is required</div>
+                </div>
+		   </div>
+		</div>	
+		<div class="col-sm-3 my-4">
+		    <button class="botton btn-blue">Continue</button>			
+		</div>
+		</form>
+		<h4 class="border-bottom pb-2">...Or Choose From Your Address Book Entries</h4>
+		<div class="col-md-12 mt-4" *ngFor="let x of addressData">
+			<div class="m-0 fw-bold">
+				<input type="radio" [(ngModel)]="address_id" value="{{x.address_book_id}}" class="form-check-label ng-pristine ng-invalid ng-touched">
+			</div>
+			<p class="m-0 fw-bold mb-3">{{x.customers_firstname}} {{x.customers_lastname}}</p>
+			<p class="m-0">{{ x.entry_company }}</p>
+			<p class="m-0">{{x.customers_firstname}} {{x.customers_lastname}}</p>
+			<p class="m-0">{{x.entry_street_address}}</p>
+			<p class="m-0">{{x.entry_city}}, {{x.zone_name}} {{x.entry_postcode}}</p>
+			<p class="m-0">{{x.countries_name}}</p>
+		</div>	
+		<div class="col-sm-3 my-4">
+		    <button (click)="select_address(address_id)" class="botton btn-blue">Continue</button>			
+		</div>
+		<p class="m-0 fw-bold">Continue- to shipping method.</p>
+	</div>	
+</div>
+</div>
+</section>

@@ -1,0 +1,80 @@
+<section class="contact_page col-md-12 pt-4"> 
+
+<div class="container" *ngIf="loading != true">
+<div class="row">
+	<h2 class="py-1">Contact Us</h2>
+	<p class="text-danger">* Required information</p>
+    <div class="col col-sm-6">
+     <form class="contact_form" [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="mb-3 row col-sm-9">
+                <label class="col-sm-3 col-form-label fw-bold">Full Name:</label>
+				<div class="col-sm-7 p-0">
+					<input class="form-control" formControlName="name" type="text" placeholder="*" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+		      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+		         <div *ngIf="f.name.errors['required']"> Name is required:</div>
+		      </div>
+				</div>
+				<div class="col-sm-1 p-0 pt-2 text-danger">*</div>
+            </div>  
+			<div class="mb-3 row col-sm-9">
+                <label class="col-sm-3 col-form-label fw-bold">Email Address:</label>
+				<div class="col-sm-7 p-0">
+					<input type="text" formControlName="email" class="form-control" placeholder="*" email="true" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors['required']">Email is required</div>
+                <div *ngIf="f.email.errors['email']">Please enter email</div>
+            </div>
+				</div>
+				<div class="col-sm-1 p-0 pt-2 text-danger">*</div>
+            </div>  
+			<div class="mb-3 row col-sm-9">
+                <label class="col-sm-3 col-form-label fw-bold">Phone Number:</label>
+				<div class="col-sm-7 p-0">
+					<input class="form-control" formControlName="phone" type="text" placeholder="*" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+		      <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+		         <div *ngIf="f.phone.errors['required']">Phone is required:</div>
+		      </div>
+				</div>
+				<div class="col-sm-1 p-0 pt-2 text-danger">*</div>
+            </div>  
+			<div class="mb-3 row col-sm-9">
+                <label class="col-sm-3 col-form-label fw-bold">Message:</label>
+				<div class="col-sm-7 p-0">
+					<textarea class="form-control height-textarea" formControlName="message" rows="3" [ngClass]="{ 'is-invalid': submitted && f.message.errors }">
+     			</textarea>
+     			 <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+		         <div *ngIf="f.message.errors['required']">Message is required:</div>
+		      </div>
+				</div>
+				<div class="col-sm-1 p-0 pt-2 text-danger">*</div>
+            </div> 	
+			<div class="mb-3 col-sm-12 btn_contact">
+                <button class="botton btn-blue">Send Now</button>
+                <a href="/" class="botton btn-blue ms-3">Back</a>
+            </div> 			
+        </form>
+    </div>
+    <div class="col col-sm-6">
+		<address>Key Craze, Inc.<br>8372 CARBIDE CT<br>SACRAMENTO, CA 95828<br>1-800-490-7539</address>
+		<h4>Business Address</h4>
+		<p>Key Craze, Inc.<br>8372 CARBIDE CT<br>SACRAMENTO, CA. 95828</p>
+		<p>Phone : 1-800-490-7539<br>Email : sales@keycraze.com</p>
+		<h4>Business Hours PST</h4>
+		<p class="business-days">
+			Sunday CLOSED<br>
+			Monday 8AM - 5PM<br>
+			Tuesday 8AM - 5PM<br>
+			Wednesday 8AM - 5PM<br>
+			Thursday 8AM - 5PM<br>
+			Friday 8AM - 4PM<br>
+			Saturday 8AM - 4PM <strong>Our Customers Love US!</strong>
+		</p>
+	</div>
+	<div class="col-sm-12 my-2">
+      <div class="google-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3123.121078184549!2d-121.39450000000001!3d38.48484799999999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac44bd9098be7%3A0x75107b1c47eb4098!2sKey+Craze+Inc!5e0!3m2!1sen!2sin!4v1397838337808" style="width:100%;border:0px" height="350"></iframe>
+      </div>
+    </div>
+</div>
+</div>
+</section>   

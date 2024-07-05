@@ -1,0 +1,76 @@
+<section class="viw_order_history col-md-12 mt-3" *ngIf="order_data">
+<div class="container">
+<div class="row">
+	<div class="col-md-12 mt-3"> 
+		<p>Order Date: {{date_format(order_data.date_purchased)}}</p>
+		<h3>Order Information - Order #{{order_data.orders_id}}</h3>
+	</div>
+	<div class="mobile_table">
+	<table class="table table-striped mt-2 border" id="">
+		<tbody class="product-shadow">
+			<tr class="cartTableHeading">
+				<th>Qty.</th>
+				<th>Product Image</th>
+				<th>Product Model</th>
+				<th>Products</th>
+				<th>Total</th>
+				<th>Reorder</th> 
+			</tr>
+			<tr id="pid-{{p.products_id}}" class="rowEven" *ngFor="let p of product_data" [ngClass]="{'shadow-sm': cartDetails.includes(p.products_id)}">
+				<td>{{p.products_quantity}} ea.</td>
+				<td><a href="/product/{{p.products_id}}"><img src="{{images_Url}}/images/{{p.products_image}}" class="" width="100" height="200"></a></td>
+				<td><a href="/product/{{p.products_id}}">{{p.products_model}}</a></td>
+				<td>{{p.products_name}}</td>
+				<td>${{p.products_price * p.products_quantity | number : '.2-2'}}</td>
+				<td *ngIf="p.pqty > 0"><button (click)="_addItemToCart(p.products_id, p.products_quantity, p.products_price)" class="botton btn-blue">Re-Order</button></td>
+				<td *ngIf="p.pqty <= 0"><button class="botton btn-red" disabled>Out of Stock</button></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-12 your_total mt-3 mb-2">
+		<div class="sub_total float-end w-100 d-flex justify-content-end" *ngFor="let ot of orders_total">
+			<p class="m-0">{{ot.title}}</p>
+			<p class="m-0 ms-3">{{ot.text}}</p>
+		</div>
+	</div>
+	<div class="col-md-12 py-2" *ngIf="history_data">
+		<h3>Status History & Comments</h3>
+		<table class="table table-striped mt-4" id="">
+		<tbody>
+			<tr class="cartTableHeading">
+				<th>Date</th>
+				<th>Order Status</th>
+				<th>Comments</th>
+			</tr>
+			<tr class="rowEven" *ngFor="let x of history_data">
+				<td>{{date_format(order_data.date_purchased)}}</td>
+				<td>{{x.orders_status_name}}</td>
+				<td>{{x.comments}}</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-6">
+		<h4 class="mt-0 mb-3">Delivery Address</h4>
+		<p class="m-0">{{order_data.delivery_company}}</p>
+		<p class="m-0">{{order_data.delivery_name}} </p>
+		<p class="m-0">{{order_data.delivery_street_address}}</p>
+		<p class="m-0">{{order_data.delivery_city}}, {{order_data.delivery_state}} {{order_data.delivery_postcode}}</p>
+		<p class="m-0">{{order_data.delivery_country}}</p>
+		<h5 class="mt-4 mb-2">Shipping Method</h5>
+		<p>{{order_data.shipping_method}}</p>
+	</div>
+	<div class="col-md-6">
+		<h4 class="mt-0 mb-3">Billing Address</h4>
+		<p class="m-0">{{order_data.billing_company}}</p>
+		<p class="m-0">{{order_data.billing_name}} </p>
+		<p class="m-0">{{order_data.billing_street_address}}</p>
+		<p class="m-0">{{order_data.billing_city}}, {{order_data.billing_state}} {{order_data.billing_postcode}}</p>
+		<p class="m-0">{{order_data.billing_country}}</p>
+		<h5 class="mt-4 mb-2">Payment Method</h5>
+		<p>{{order_data.payment_method}}</p>
+	</div>
+</div>
+</div>
+</section>	
